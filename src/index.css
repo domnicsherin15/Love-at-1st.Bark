@@ -2,41 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Ocean Blue Serenity Design System - Dog Website */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Ocean Blue Serenity Palette */
+    --background: 210 40% 98%;
+    --foreground: 215 25% 27%;
 
+    /* Card surfaces */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 215 25% 27%;
 
+    /* Popover surfaces */
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 215 25% 27%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Ocean Blue Primary */
+    --primary: 210 100% 56%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 210 100% 85%;
+    --primary-dark: 210 100% 35%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Serenity Blue Secondary */
+    --secondary: 200 50% 90%;
+    --secondary-foreground: 215 25% 27%;
+    --secondary-dark: 200 40% 70%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Golden Accent */
+    --accent: 43 96% 56%;
+    --accent-foreground: 215 25% 27%;
+    --accent-light: 43 96% 85%;
+    --accent-dark: 43 96% 40%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Muted ocean tones */
+    --muted: 210 25% 95%;
+    --muted-foreground: 215 15% 50%;
 
+    /* System colors */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
+    --border: 210 25% 88%;
+    --input: 210 25% 88%;
+    --ring: 210 100% 56%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Design system radius */
+    --radius: 1rem;
 
-    --radius: 0.5rem;
+    /* Custom design tokens */
+    --ocean-gradient: linear-gradient(135deg, hsl(210 100% 85%) 0%, hsl(210 100% 56%) 50%, hsl(210 100% 35%) 100%);
+    --serenity-gradient: linear-gradient(180deg, hsl(200 50% 95%) 0%, hsl(200 50% 90%) 100%);
+    --golden-gradient: linear-gradient(135deg, hsl(43 96% 85%) 0%, hsl(43 96% 56%) 100%);
+    --hero-gradient: linear-gradient(135deg, hsl(210 100% 85%) 0%, hsl(210 100% 70%) 25%, hsl(200 50% 90%) 50%, hsl(43 96% 85%) 100%);
+    
+    /* Shadows */
+    --shadow-soft: 0 4px 20px hsl(210 100% 56% / 0.1);
+    --shadow-medium: 0 8px 30px hsl(210 100% 56% / 0.15);
+    --shadow-strong: 0 20px 40px hsl(210 100% 56% / 0.2);
+    --shadow-glow: 0 0 40px hsl(210 100% 56% / 0.3);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -94,12 +121,81 @@ All colors MUST be HSL.
   }
 }
 
+/* Advanced Animations and Effects */
 @layer base {
-  * {
-    @apply border-border;
+  html {
+    scroll-behavior: smooth;
   }
-
+  
   body {
     @apply bg-background text-foreground;
+  }
+  
+  /* Parallax Effect */
+  .parallax {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  
+  /* Glass morphism */
+  .glass {
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Gradient text */
+  .gradient-text {
+    background: var(--ocean-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  /* Floating animation */
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  /* Fade in up animation */
+  .fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Stagger animations */
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+  
+  /* Hover effects */
+  .hover-lift {
+    transition: var(--transition-smooth);
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-strong);
+  }
+  
+  /* Button glow effect */
+  .btn-glow:hover {
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-2px);
   }
 }
