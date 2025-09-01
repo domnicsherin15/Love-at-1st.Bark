@@ -17,9 +17,9 @@ const Navigation = () => {
   const navItems = [
     { name: "Discover", href: "#home" },
     { name: "Paw-some Breeds", href: "#breeds" },
-    { name: "Caring Companions", href: "#care" },
+    { name: "Care Hub", href: "#care" },
     { name: "Forever Homes", href: "#adoption" },
-    { name: "Tail Tales", href: "#blog" }
+    { name: "Join Community", href: "/auth" }
   ];
 
   return (
@@ -51,8 +51,8 @@ const Navigation = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button variant="default" className="btn-glow">
-              Find Your Match
+            <Button variant="default" className="btn-glow" onClick={() => window.location.href = '/auth'}>
+              Join Community
             </Button>
           </div>
 
@@ -83,8 +83,8 @@ const Navigation = () => {
                   {item.name}
                 </a>
               ))}
-              <Button variant="default" className="mt-4">
-                Find Your Match
+              <Button variant="default" className="mt-4" onClick={() => window.location.href = '/auth'}>
+                Join Community
               </Button>
             </div>
           </div>

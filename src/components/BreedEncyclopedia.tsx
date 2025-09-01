@@ -12,6 +12,45 @@ import { Separator } from "@/components/ui/separator";
 const breeds = [
   {
     id: 1,
+    name: "Shih-Tzu",
+    category: "Small",
+    energy: "Medium", 
+    temperament: "Affectionate, Playful, Outgoing",
+    image: "/api/placeholder/400/300",
+    images: [
+      "/api/placeholder/400/300",
+      "/api/placeholder/400/320",
+      "/api/placeholder/400/280",
+      "/api/placeholder/400/350",
+      "/api/placeholder/400/370"
+    ],
+    lifespan: "10-18 years",
+    weight: "9-16 lbs",
+    coat: "Long",
+    rating: 4.9,
+    reviewCount: 1847,
+    popularity: 98,
+    origin: "Tibet/China",
+    goodWith: ["Families", "Children", "Seniors", "Apartments"],
+    description: "Shih-Tzus are affectionate, playful, and outgoing companions bred to be house pets. Known for their flowing double coat and friendly demeanor, they make excellent family dogs and adapt well to apartment living. Their name means 'lion dog' in Chinese, reflecting their regal appearance and confident personality.",
+    reviews: [
+      { name: "Maria S.", rating: 5, comment: "Best family dog! So gentle with our toddler and incredibly loyal.", avatar: "/api/placeholder/40/40" },
+      { name: "Robert L.", rating: 5, comment: "Perfect apartment companion. Doesn't need much exercise but loves cuddles!", avatar: "/api/placeholder/40/40" },
+      { name: "Jennifer K.", rating: 5, comment: "Amazing temperament and so easy to train. Highly recommend for first-time owners.", avatar: "/api/placeholder/40/40" }
+    ],
+    detailedInfo: {
+      history: "Originally bred by Tibetan monks and later developed in the Chinese imperial court, Shih-Tzus were highly prized by Chinese royalty and were often given as gifts to visiting dignitaries.",
+      physicalTraits: "Compact body, short muzzle, large dark eyes, and a distinctive flowing double coat that comes in many color combinations.",
+      careNeeds: {
+        grooming: "Daily brushing required to prevent matting. Professional grooming every 6-8 weeks.",
+        exercise: "20-30 minutes of daily exercise, including walks and indoor play.",
+        training: "Responds well to positive reinforcement. Can be stubborn but generally eager to please.",
+        health: "Watch for eye problems, respiratory issues due to flat face, and hip dysplasia."
+      }
+    }
+  },
+  {
+    id: 2,
     name: "Golden Retriever",
     category: "Large",
     energy: "High",
@@ -38,7 +77,7 @@ const breeds = [
     ]
   },
   {
-    id: 2,
+    id: 3,
     name: "French Bulldog",
     category: "Small",
     energy: "Medium",
@@ -63,7 +102,7 @@ const breeds = [
     ]
   },
   {
-    id: 3,
+    id: 4,
     name: "Border Collie",
     category: "Medium",
     energy: "Very High",
@@ -90,7 +129,7 @@ const breeds = [
     ]
   },
   {
-    id: 4,
+    id: 5,
     name: "Labrador Retriever",
     category: "Large",
     energy: "High",
@@ -115,7 +154,7 @@ const breeds = [
     ]
   },
   {
-    id: 5,
+    id: 6,
     name: "Pomeranian",
     category: "Small",
     energy: "Medium",
@@ -139,7 +178,7 @@ const breeds = [
     ]
   },
   {
-    id: 6,
+    id: 7,
     name: "German Shepherd",
     category: "Large",
     energy: "High",

@@ -2,15 +2,15 @@ import { useState, useEffect } from "react";
 import { ArrowRight, Play, Heart, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import heroImage from "@/assets/hero-dogs.jpg";
-import dogPortrait1 from "@/assets/dog-portrait-1.jpg";
-import dogPortrait2 from "@/assets/dog-portrait-2.jpg";
+import shihtzu1 from "@/assets/shih-tzu-hero-1.jpg";
+import shihtzu2 from "@/assets/shih-tzu-hero-2.jpg";
+import shihtzu3 from "@/assets/shih-tzu-hero-3.jpg";
 
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [parallaxOffset, setParallaxOffset] = useState(0);
 
-  const images = [heroImage, dogPortrait1, dogPortrait2];
+  const images = [shihtzu1, shihtzu2, shihtzu3];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,14 +59,14 @@ const HeroSection = () => {
 
           {/* Main Heading */}
           <h1 className="text-5xl md:text-7xl font-bold mb-6 fade-in-up stagger-2">
-            <span className="gradient-text">Discover</span> the Perfect
+            <span className="gradient-text">Shih-Tzu</span> Care &
             <br />
-            <span className="text-accent">Companion</span>
+            <span className="text-accent">Excellence</span>
           </h1>
 
           {/* Subheading */}
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto fade-in-up stagger-3">
-            Explore comprehensive breed information, expert care guides, and find your ideal four-legged friend
+            Your complete guide to Shih-Tzu care, health, and happiness. Expert advice for every stage of your companion's life.
           </p>
 
           {/* CTA Buttons */}
