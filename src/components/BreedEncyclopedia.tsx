@@ -9,6 +9,23 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 
+// Import dog breed images
+import shihtzu from "@/assets/breeds/shih-tzu-main.jpg";
+import shihtzu1 from "@/assets/breeds/shih-tzu-gallery-1.jpg";
+import shihtzu2 from "@/assets/breeds/shih-tzu-gallery-2.jpg";
+import goldenRetriever from "@/assets/breeds/golden-retriever-main.jpg";
+import goldenRetriever1 from "@/assets/breeds/golden-retriever-gallery-1.jpg";
+import frenchBulldog from "@/assets/breeds/french-bulldog-main.jpg";
+import frenchBulldog1 from "@/assets/breeds/french-bulldog-gallery-1.jpg";
+import borderCollie from "@/assets/breeds/border-collie-main.jpg";
+import borderCollie1 from "@/assets/breeds/border-collie-gallery-1.jpg";
+import labradorRetriever from "@/assets/breeds/labrador-retriever-main.jpg";
+import labradorRetriever1 from "@/assets/breeds/labrador-retriever-gallery-1.jpg";
+import pomeranian from "@/assets/breeds/pomeranian-main.jpg";
+import pomeranian1 from "@/assets/breeds/pomeranian-gallery-1.jpg";
+import germanShepherd from "@/assets/breeds/german-shepherd-main.jpg";
+import germanShepherd1 from "@/assets/breeds/german-shepherd-gallery-1.jpg";
+
 const breeds = [
   {
     id: 1,
@@ -16,13 +33,13 @@ const breeds = [
     category: "Small",
     energy: "Medium", 
     temperament: "Affectionate, Playful, Outgoing",
-    image: "/api/placeholder/400/300",
+    image: shihtzu,
     images: [
-      "/api/placeholder/400/300",
-      "/api/placeholder/400/320",
-      "/api/placeholder/400/280",
-      "/api/placeholder/400/350",
-      "/api/placeholder/400/370"
+      shihtzu,
+      shihtzu1,
+      shihtzu2,
+      shihtzu,
+      shihtzu1
     ],
     lifespan: "10-18 years",
     weight: "9-16 lbs",
@@ -55,12 +72,12 @@ const breeds = [
     category: "Large",
     energy: "High",
     temperament: "Friendly, Intelligent, Devoted",
-    image: "/api/placeholder/400/300",
+    image: goldenRetriever,
     images: [
-      "/api/placeholder/400/300",
-      "/api/placeholder/400/320", 
-      "/api/placeholder/400/280",
-      "/api/placeholder/400/350"
+      goldenRetriever,
+      goldenRetriever1, 
+      goldenRetriever,
+      goldenRetriever1
     ],
     lifespan: "10-12 years",
     weight: "55-75 lbs",
@@ -82,11 +99,11 @@ const breeds = [
     category: "Small",
     energy: "Medium",
     temperament: "Playful, Adaptable, Smart",
-    image: "/api/placeholder/400/300",
+    image: frenchBulldog,
     images: [
-      "/api/placeholder/400/300",
-      "/api/placeholder/400/320",
-      "/api/placeholder/400/280"
+      frenchBulldog,
+      frenchBulldog1,
+      frenchBulldog
     ],
     lifespan: "10-12 years",
     weight: "20-28 lbs",
@@ -107,13 +124,13 @@ const breeds = [
     category: "Medium",
     energy: "Very High",
     temperament: "Energetic, Smart, Athletic",
-    image: "/api/placeholder/400/300",
+    image: borderCollie,
     images: [
-      "/api/placeholder/400/300",
-      "/api/placeholder/400/320",
-      "/api/placeholder/400/280",
-      "/api/placeholder/400/350",
-      "/api/placeholder/400/370"
+      borderCollie,
+      borderCollie1,
+      borderCollie,
+      borderCollie1,
+      borderCollie
     ],
     lifespan: "12-15 years",
     weight: "30-55 lbs",
@@ -134,11 +151,11 @@ const breeds = [
     category: "Large",
     energy: "High",
     temperament: "Outgoing, Active, Friendly",
-    image: "/api/placeholder/400/300",
+    image: labradorRetriever,
     images: [
-      "/api/placeholder/400/300",
-      "/api/placeholder/400/320",
-      "/api/placeholder/400/280"
+      labradorRetriever,
+      labradorRetriever1,
+      labradorRetriever
     ],
     lifespan: "10-12 years",
     weight: "55-80 lbs",
@@ -159,10 +176,10 @@ const breeds = [
     category: "Small",
     energy: "Medium",
     temperament: "Bold, Curious, Lively",
-    image: "/api/placeholder/400/300",
+    image: pomeranian,
     images: [
-      "/api/placeholder/400/300",
-      "/api/placeholder/400/320"
+      pomeranian,
+      pomeranian1
     ],
     lifespan: "12-16 years",
     weight: "3-7 lbs",
@@ -183,12 +200,12 @@ const breeds = [
     category: "Large",
     energy: "High",
     temperament: "Confident, Courageous, Smart",
-    image: "/api/placeholder/400/300",
+    image: germanShepherd,
     images: [
-      "/api/placeholder/400/300",
-      "/api/placeholder/400/320",
-      "/api/placeholder/400/280",
-      "/api/placeholder/400/350"
+      germanShepherd,
+      germanShepherd1,
+      germanShepherd,
+      germanShepherd1
     ],
     lifespan: "9-13 years",
     weight: "50-90 lbs",
