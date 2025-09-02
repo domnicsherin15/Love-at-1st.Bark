@@ -71,7 +71,7 @@ export default {
 			backgroundImage: {
 				'ocean-gradient': 'var(--ocean-gradient)',
 				'serenity-gradient': 'var(--serenity-gradient)',
-				'golden-gradient': 'var(--golden-gradient)',
+				'pink-gradient': 'var(--pink-gradient)',
 				'hero-gradient': 'var(--hero-gradient)'
 			},
 			boxShadow: {

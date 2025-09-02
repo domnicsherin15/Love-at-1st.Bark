@@ -29,11 +29,11 @@
     --secondary-foreground: 215 25% 27%;
     --secondary-dark: 200 40% 70%;
 
-    /* Golden Accent */
-    --accent: 43 96% 56%;
-    --accent-foreground: 215 25% 27%;
-    --accent-light: 43 96% 85%;
-    --accent-dark: 43 96% 40%;
+    /* Hot Pink Accent */
+    --accent: 330 100% 60%;
+    --accent-foreground: 0 0% 100%;
+    --accent-light: 330 100% 85%;
+    --accent-dark: 330 100% 40%;
 
     /* Muted ocean tones */
     --muted: 210 25% 95%;
@@ -52,8 +52,8 @@
     /* Custom design tokens */
     --ocean-gradient: linear-gradient(135deg, hsl(210 100% 85%) 0%, hsl(210 100% 56%) 50%, hsl(210 100% 35%) 100%);
     --serenity-gradient: linear-gradient(180deg, hsl(200 50% 95%) 0%, hsl(200 50% 90%) 100%);
-    --golden-gradient: linear-gradient(135deg, hsl(43 96% 85%) 0%, hsl(43 96% 56%) 100%);
-    --hero-gradient: linear-gradient(135deg, hsl(210 100% 85%) 0%, hsl(210 100% 70%) 25%, hsl(200 50% 90%) 50%, hsl(43 96% 85%) 100%);
+    --pink-gradient: linear-gradient(135deg, hsl(330 100% 85%) 0%, hsl(330 100% 60%) 100%);
+    --hero-gradient: linear-gradient(135deg, hsl(210 100% 85%) 0%, hsl(210 100% 70%) 25%, hsl(200 50% 90%) 50%, hsl(330 100% 85%) 100%);
     
     /* Shadows */
     --shadow-soft: 0 4px 20px hsl(210 100% 56% / 0.1);
