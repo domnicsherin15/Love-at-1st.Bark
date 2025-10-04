@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Search, Filter, Heart, Star, Zap, Home, ArrowUpDown, Grid, Camera, MapPin, Bookmark, BookmarkCheck } from "lucide-react";
+import { useState, useRef } from "react";
+import { Search, Filter, Heart, Star, Zap, Home, ArrowUpDown, Grid, Camera, MapPin, Bookmark, BookmarkCheck, Volume2, VolumeX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -33,6 +33,7 @@ const breeds = [
     category: "Small",
     energy: "Medium", 
     temperament: "Affectionate, Playful, Outgoing",
+    barkSound: "https://assets.mixkit.co/active_storage/sfx/2460/2460-preview.mp3",
     image: shihtzu,
     images: [
       shihtzu,
@@ -72,6 +73,7 @@ const breeds = [
     category: "Large",
     energy: "High",
     temperament: "Friendly, Intelligent, Devoted",
+    barkSound: "https://assets.mixkit.co/active_storage/sfx/2459/2459-preview.mp3",
     image: goldenRetriever,
     images: [
       goldenRetriever,
@@ -99,6 +101,7 @@ const breeds = [
     category: "Small",
     energy: "Medium",
     temperament: "Playful, Adaptable, Smart",
+    barkSound: "https://assets.mixkit.co/active_storage/sfx/2461/2461-preview.mp3",
     image: frenchBulldog,
     images: [
       frenchBulldog,
@@ -124,6 +127,7 @@ const breeds = [
     category: "Medium",
     energy: "Very High",
     temperament: "Energetic, Smart, Athletic",
+    barkSound: "https://assets.mixkit.co/active_storage/sfx/2462/2462-preview.mp3",
     image: borderCollie,
     images: [
       borderCollie,
@@ -151,6 +155,7 @@ const breeds = [
     category: "Large",
     energy: "High",
     temperament: "Outgoing, Active, Friendly",
+    barkSound: "https://assets.mixkit.co/active_storage/sfx/2458/2458-preview.mp3",
     image: labradorRetriever,
     images: [
       labradorRetriever,
@@ -176,6 +181,7 @@ const breeds = [
     category: "Small",
     energy: "Medium",
     temperament: "Bold, Curious, Lively",
+    barkSound: "https://assets.mixkit.co/active_storage/sfx/2463/2463-preview.mp3",
     image: pomeranian,
     images: [
       pomeranian,
@@ -200,6 +206,7 @@ const breeds = [
     category: "Large",
     energy: "High",
     temperament: "Confident, Courageous, Smart",
+    barkSound: "https://assets.mixkit.co/active_storage/sfx/2457/2457-preview.mp3",
     image: germanShepherd,
     images: [
       germanShepherd,
@@ -246,6 +253,8 @@ const BreedEncyclopedia = () => {
   const [favorites, setFavorites] = useState<number[]>([]);
   const [selectedBreed, setSelectedBreed] = useState<typeof breeds[0] | null>(null);
   const [showGallery, setShowGallery] = useState(false);
+  const [playingSound, setPlayingSound] = useState<number | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const filteredBreeds = breeds
     .filter(breed => {
@@ -306,6 +315,31 @@ const BreedEncyclopedia = () => {
       case "High": return "text-primary";
       case "Very High": return "text-primary-dark";
       default: return "text-muted-foreground";
+    }
+  };
+
+  const playBarkSound = (breed: typeof breeds[0]) => {
+    if (playingSound === breed.id) {
+      // Stop playing
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+      setPlayingSound(null);
+    } else {
+      // Play new sound
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+      const audio = new Audio(breed.barkSound);
+      audio.volume = 0.5;
+      audio.play();
+      audioRef.current = audio;
+      setPlayingSound(breed.id);
+      
+      audio.onended = () => {
+        setPlayingSound(null);
+      };
     }
   };
 
@@ -422,7 +456,7 @@ const BreedEncyclopedia = () => {
                     )}
                   </Button>
                 </div>
-                <div className="absolute bottom-4 left-4">
+                <div className="absolute bottom-4 left-4 flex gap-2">
                   <Button
                     variant="secondary" 
                     size="sm"
@@ -431,6 +465,19 @@ const BreedEncyclopedia = () => {
                   >
                     <Camera className="h-3 w-3 mr-1" />
                     {breed.images.length} photos
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    className="glass text-xs btn-glow"
+                    onClick={() => playBarkSound(breed)}
+                  >
+                    {playingSound === breed.id ? (
+                      <VolumeX className="h-3 w-3 mr-1 animate-pulse" />
+                    ) : (
+                      <Volume2 className="h-3 w-3 mr-1" />
+                    )}
+                    Hear bark
                   </Button>
                 </div>
               </div>
