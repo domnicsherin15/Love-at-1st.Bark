@@ -60,15 +60,22 @@ const HeroSection = () => {
           </Badge>
 
           {/* Main Heading */}
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 fade-in-up stagger-2">
-            <span className="gradient-text">Shih-Tzu</span> Care &
+          <h1 className="text-5xl md:text-7xl font-bold mb-6">
+            <span className="gradient-text text-reveal stagger-2">Shih-Tzu</span>
+            <span className="slide-in-glow" style={{ animationDelay: "0.3s" }}> Care & </span>
             <br />
-            <span className="text-accent">Excellence</span>
+            <span className="text-accent text-reveal" style={{ animationDelay: "0.5s" }}>Excellence</span>
           </h1>
 
           {/* Subheading */}
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto fade-in-up stagger-3">
-            Your complete guide to Shih-Tzu care, health, and happiness. Expert advice for every stage of your companion's life.
+          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <span className="word-fade inline-block" style={{ animationDelay: "0.7s" }}>Everything</span>{' '}
+            <span className="word-fade inline-block" style={{ animationDelay: "0.85s" }}>You</span>{' '}
+            <span className="word-fade inline-block" style={{ animationDelay: "1s" }}>Need</span>{' '}
+            <span className="word-fade inline-block" style={{ animationDelay: "1.15s" }}>for</span>{' '}
+            <span className="word-fade inline-block" style={{ animationDelay: "1.3s" }}>Your</span>{' '}
+            <span className="word-fade inline-block" style={{ animationDelay: "1.45s" }}>Dog</span>{' '}
+            <span className="word-fade inline-block" style={{ animationDelay: "1.6s" }}>Journey</span>
           </p>
 
           {/* CTA Buttons */}
