@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ArrowRight, Play, Heart, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useNavigate } from "react-router-dom";
 import shihtzu1 from "@/assets/shih-tzu-hero-1.jpg";
 import shihtzu2 from "@/assets/shih-tzu-hero-2.jpg";
 import shihtzu3 from "@/assets/shih-tzu-hero-3.jpg";
@@ -9,6 +10,7 @@ import shihtzu3 from "@/assets/shih-tzu-hero-3.jpg";
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [parallaxOffset, setParallaxOffset] = useState(0);
+  const navigate = useNavigate();
 
   const images = [shihtzu1, shihtzu2, shihtzu3];
 
@@ -71,13 +73,13 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 fade-in-up stagger-4">
-            <Button size="lg" className="btn-glow text-lg px-8">
+            <Button size="lg" className="btn-glow text-lg px-8" onClick={() => navigate('/breeds')}>
               Explore Breeds
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8 glass">
+            <Button size="lg" variant="outline" className="text-lg px-8 glass" onClick={() => navigate('/care-hub')}>
               <Play className="mr-2 h-5 w-5" />
-              Watch Story
+              Care Guide
             </Button>
           </div>
 

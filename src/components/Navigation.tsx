@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,10 +17,9 @@ const Navigation = () => {
   }, []);
 
   const navItems = [
-    { name: "Discover", href: "#home" },
-    { name: "Paw-some Breeds", href: "#breeds" },
-    { name: "Care Hub", href: "#care" },
-    { name: "Forever Homes", href: "#adoption" },
+    { name: "Home", href: "/" },
+    { name: "Breeds", href: "/breeds" },
+    { name: "Care & Health", href: "/care-hub" },
     { name: "Join Community", href: "/auth" }
   ];
 
@@ -31,27 +32,27 @@ const Navigation = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2">
             <Heart className="h-8 w-8 text-primary" />
             <span className="font-bold text-xl gradient-text">PawPerfect</span>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item, index) => (
-              <a
+            {navItems.map((item) => (
+              <Link
                 key={item.name}
-                href={item.href}
+                to={item.href}
                 className="text-foreground hover:text-primary transition-colors duration-200 font-medium"
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </div>
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button variant="default" className="btn-glow" onClick={() => window.location.href = '/auth'}>
+            <Button variant="default" className="btn-glow" onClick={() => navigate('/auth')}>
               Join Community
             </Button>
           </div>
@@ -74,16 +75,16 @@ const Navigation = () => {
           <div className="md:hidden glass rounded-lg mt-2 p-4 animate-scale-in">
             <div className="flex flex-col space-y-4">
               {navItems.map((item) => (
-                <a
+                <Link
                   key={item.name}
-                  href={item.href}
+                  to={item.href}
                   className="text-foreground hover:text-primary transition-colors duration-200 font-medium"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
-                </a>
+                </Link>
               ))}
-              <Button variant="default" className="mt-4" onClick={() => window.location.href = '/auth'}>
+              <Button variant="default" className="mt-4" onClick={() => { navigate('/auth'); setIsOpen(false); }}>
                 Join Community
               </Button>
             </div>
