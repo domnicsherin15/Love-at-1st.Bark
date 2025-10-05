@@ -1,5 +1,6 @@
-import { useState, useRef } from "react";
-import { Search, Filter, Heart, Star, Zap, Home, ArrowUpDown, Grid, Camera, MapPin, Bookmark, BookmarkCheck, Volume2, VolumeX } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Search, Filter, Heart, Star, Zap, Home, ArrowUpDown, Grid, Camera, MapPin, Bookmark, BookmarkCheck, Volume2, VolumeX, Sparkles, PartyPopper } from "lucide-react";
+import confetti from "canvas-confetti";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
+import { toast } from "sonner";
 
 // Import dog breed images
 import shihtzu from "@/assets/breeds/shih-tzu-main.jpg";
@@ -255,6 +257,109 @@ const BreedEncyclopedia = () => {
   const [showGallery, setShowGallery] = useState(false);
   const [playingSound, setPlayingSound] = useState<number | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [scrollY, setScrollY] = useState(0);
+  const [easterEggClicks, setEasterEggClicks] = useState<{ [key: number]: number }>({});
+  const [konamiCode, setKonamiCode] = useState<string[]>([]);
+  const [secretUnlocked, setSecretUnlocked] = useState(false);
+  
+  // Apple-style scroll animations
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Konami Code Easter Egg (up, up, down, down, left, right, left, right, b, a)
+  useEffect(() => {
+    const konamiPattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const newCode = [...konamiCode, e.key].slice(-10);
+      setKonamiCode(newCode);
+      
+      if (JSON.stringify(newCode) === JSON.stringify(konamiPattern)) {
+        triggerEasterEgg();
+        setKonamiCode([]);
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [konamiCode]);
+
+  const triggerEasterEgg = () => {
+    setSecretUnlocked(true);
+    
+    // Toast notification
+    toast.success("🎉 Konami Code Activated!", {
+      description: "You've unlocked the secret! All dogs are now extra happy! 🐾"
+    });
+    
+    // Rainbow confetti explosion
+    const duration = 3000;
+    const end = Date.now() + duration;
+    
+    const frame = () => {
+      confetti({
+        particleCount: 7,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+        colors: ['#339af0', '#ff3e9a', '#7c3aed', '#10b981', '#f59e0b']
+      });
+      
+      confetti({
+        particleCount: 7,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+        colors: ['#339af0', '#ff3e9a', '#7c3aed', '#10b981', '#f59e0b']
+      });
+      
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+      }
+    };
+    
+    frame();
+    
+    setTimeout(() => setSecretUnlocked(false), duration);
+  };
+
+  const handleBreedNameClick = (breedId: number) => {
+    const clicks = (easterEggClicks[breedId] || 0) + 1;
+    setEasterEggClicks({ ...easterEggClicks, [breedId]: clicks });
+    
+    if (clicks === 1) {
+      toast("🐶 Keep clicking!", {
+        description: "Two more clicks for a surprise!"
+      });
+    } else if (clicks === 2) {
+      toast("🐾 Almost there!", {
+        description: "One more click!"
+      });
+    } else if (clicks === 3) {
+      // Triple click easter egg - confetti burst!
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#339af0', '#ff3e9a']
+      });
+      
+      toast.success("🎉 Triple Click Master!", {
+        description: "You found the secret! Here's some confetti! 🎊"
+      });
+      
+      // Reset clicks
+      setTimeout(() => {
+        setEasterEggClicks({ ...easterEggClicks, [breedId]: 0 });
+      }, 2000);
+    }
+  };
 
   const filteredBreeds = breeds
     .filter(breed => {
@@ -283,11 +388,31 @@ const BreedEncyclopedia = () => {
     });
 
   const toggleFavorite = (breedId: number) => {
+    const isAdding = !favorites.includes(breedId);
+    
     setFavorites(prev => 
       prev.includes(breedId) 
         ? prev.filter(id => id !== breedId)
         : [...prev, breedId]
     );
+    
+    // Easter egg: Confetti when adding to favorites!
+    if (isAdding) {
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.7 },
+        colors: ['#339af0', '#ff3e9a']
+      });
+      
+      toast.success("💖 Added to favorites!", {
+        description: "This breed is paw-some! Enjoy the confetti! 🎉"
+      });
+    } else {
+      toast("Removed from favorites", {
+        description: "Changed your mind? No problem!"
+      });
+    }
   };
 
   const openBreedDetails = (breed: typeof breeds[0]) => {
@@ -344,11 +469,35 @@ const BreedEncyclopedia = () => {
   };
 
   return (
-    <section id="breeds" className="py-20 bg-serenity-gradient">
-      <div className="container mx-auto px-4">
-        {/* Header */}
-        <div className="text-center mb-16 fade-in-up">
-          <Badge variant="secondary" className="mb-4">
+    <section id="breeds" className="relative py-20 bg-serenity-gradient overflow-hidden">
+      {/* Parallax floating shapes */}
+      <div 
+        className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl"
+        style={{ transform: `translateY(${scrollY * 0.1}px)` }}
+      />
+      <div 
+        className="absolute bottom-20 right-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl"
+        style={{ transform: `translateY(${-scrollY * 0.15}px)` }}
+      />
+      
+      {/* Secret unlocked indicator */}
+      {secretUnlocked && (
+        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 animate-bounce">
+          <Badge className="text-lg px-6 py-3 bg-gradient-to-r from-primary via-accent to-primary-dark text-white">
+            <PartyPopper className="h-5 w-5 mr-2 inline animate-spin" />
+            Secret Unleashed! All dogs are now extra happy! 🐾
+          </Badge>
+        </div>
+      )}
+      
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Header with parallax */}
+        <div 
+          className="text-center mb-16 fade-in-up"
+          style={{ transform: `translateY(${scrollY * 0.05}px)` }}
+        >
+          <Badge variant="secondary" className="mb-4 animate-pulse">
+            <Sparkles className="h-4 w-4 mr-2 inline" />
             200+ Breeds Available
           </Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
@@ -356,6 +505,9 @@ const BreedEncyclopedia = () => {
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Discover the perfect breed for your lifestyle with our comprehensive database
+          </p>
+          <p className="text-sm text-muted-foreground/60 mt-4 italic">
+            💡 Tip: Triple-click on breed names for a surprise! Try the Konami code!
           </p>
         </div>
 
@@ -428,17 +580,29 @@ const BreedEncyclopedia = () => {
           </div>
         </div>
 
-        {/* Enhanced Breed Cards Grid */}
+        {/* Enhanced Breed Cards Grid with Apple-style animations */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in-up stagger-3">
           {filteredBreeds.map((breed, index) => (
-            <Card key={breed.id} className="hover-lift group overflow-hidden relative">
-              <div className="relative">
+            <Card 
+              key={breed.id} 
+              className="hover-lift group overflow-hidden relative transition-all duration-500 hover:shadow-elegant hover:-translate-y-3"
+              style={{
+                transform: `translateY(${Math.sin(scrollY * 0.002 + index) * 5}px)`,
+                transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
+              }}
+            >
+              <div className="relative overflow-hidden">
                 <img
                   src={breed.image}
                   alt={breed.name}
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer"
+                  className="w-full h-48 object-cover group-hover:scale-110 group-hover:rotate-1 transition-all duration-700 cursor-pointer"
                   onClick={() => openGallery(breed)}
+                  style={{
+                    transform: `scale(${1 + scrollY * 0.00005}) translateY(${scrollY * 0.02}px)`
+                  }}
                 />
+                {/* Gradient overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="absolute top-4 left-4 right-4 flex justify-between">
                   <Badge variant="secondary" className="glass">
                     {breed.category}
@@ -484,7 +648,17 @@ const BreedEncyclopedia = () => {
               
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-xl">{breed.name}</CardTitle>
+                  <CardTitle 
+                    className="text-xl cursor-pointer select-none hover:text-primary transition-colors duration-300"
+                    onClick={() => handleBreedNameClick(breed.id)}
+                  >
+                    {breed.name}
+                    {easterEggClicks[breed.id] >= 1 && (
+                      <span className="inline-block ml-2 animate-bounce">
+                        {easterEggClicks[breed.id] === 1 ? '🐶' : easterEggClicks[breed.id] === 2 ? '🐾' : '🎉'}
+                      </span>
+                    )}
+                  </CardTitle>
                   <div className="flex items-center">
                     <Star className="h-4 w-4 text-accent fill-current" />
                     <span className="ml-1 text-sm font-medium">{breed.rating}</span>
@@ -763,6 +937,29 @@ const BreedEncyclopedia = () => {
             Can't find what you're looking for? Try our interactive breed finder quiz to discover your perfect match!
           </p>
         </div>
+      </div>
+      
+      {/* Floating Easter Egg Hint - Fixed position */}
+      <div className="fixed bottom-8 right-8 z-40 animate-float">
+        <Button
+          variant="secondary"
+          size="lg"
+          className="glass rounded-full shadow-elegant hover:scale-110 transition-all duration-300 group"
+          onClick={() => {
+            confetti({
+              particleCount: 30,
+              spread: 60,
+              origin: { x: 0.9, y: 0.9 }
+            });
+            
+            toast("🎮 Easter Egg Hints!", {
+              description: "• Triple-click breed names\n• Try the Konami code (↑↑↓↓←→←→BA)\n• Add breeds to favorites\n• Scroll for parallax magic!"
+            });
+          }}
+        >
+          <Sparkles className="h-5 w-5 mr-2 group-hover:rotate-180 transition-transform duration-500" />
+          Easter Eggs
+        </Button>
       </div>
     </section>
   );
