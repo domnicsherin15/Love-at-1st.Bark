@@ -17,7 +17,7 @@ const Navigation = () => {
   }, []);
 
   const navItems = [
-    { name: "Home", href: "/" },
+    { name: "Discover", href: "/" },
     { name: "Breeds", href: "/breeds" },
     { name: "Care & Health", href: "/care-hub" },
     { name: "Join Community", href: "/auth" }
@@ -43,7 +43,7 @@ const Navigation = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className="text-foreground hover:text-primary transition-colors duration-200 font-medium"
+                className="text-foreground hover:text-primary transition-all duration-300 font-medium hover:scale-110 hover:-translate-y-1"
               >
                 {item.name}
               </Link>
@@ -52,7 +52,7 @@ const Navigation = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button variant="default" className="btn-glow" onClick={() => navigate('/auth')}>
+            <Button variant="default" className="btn-glow hover:scale-105 transition-all duration-300 hover:shadow-elegant" onClick={() => navigate('/auth')}>
               Join Community
             </Button>
           </div>
@@ -78,13 +78,13 @@ const Navigation = () => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="text-foreground hover:text-primary transition-colors duration-200 font-medium"
+                  className="text-foreground hover:text-primary transition-all duration-300 font-medium hover:translate-x-2"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
                 </Link>
               ))}
-              <Button variant="default" className="mt-4" onClick={() => { navigate('/auth'); setIsOpen(false); }}>
+              <Button variant="default" className="mt-4 hover:scale-105 transition-all duration-300" onClick={() => { navigate('/auth'); setIsOpen(false); }}>
                 Join Community
               </Button>
             </div>
