@@ -440,84 +440,90 @@
     animation: word-wave-in 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* RGB Adaptive Cursor for Care Hub */
+  /* Glowing Hover Effect for Care Hub Section */
   .care-hub-section {
-    cursor: none;
+    position: relative;
+    overflow: hidden;
     --mouse-x: 50%;
     --mouse-y: 50%;
   }
 
   .care-hub-section::before {
     content: '';
-    position: fixed;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
-    z-index: 9999;
-    left: var(--mouse-x);
-    top: var(--mouse-y);
-    transform: translate(-50%, -50%);
-    background: radial-gradient(
-      circle,
-      hsl(var(--primary)) 0%,
-      hsl(var(--accent)) 50%,
-      hsl(var(--primary-light)) 100%
-    );
-    opacity: 0.6;
-    filter: blur(8px);
-    mix-blend-mode: screen;
-    animation: cursor-pulse 2s ease-in-out infinite;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    background: 
+      radial-gradient(
+        800px circle at var(--mouse-x) var(--mouse-y),
+        hsl(var(--primary) / 0.2),
+        hsl(var(--primary-light) / 0.15) 30%,
+        hsl(var(--accent) / 0.1) 50%,
+        transparent 70%
+      );
+    animation: glow-pulse-primary 3s ease-in-out infinite;
+  }
+
+  .care-hub-section:hover::before {
+    opacity: 1;
   }
 
   .care-hub-section::after {
     content: '';
-    position: fixed;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
-    z-index: 10000;
-    left: var(--mouse-x);
-    top: var(--mouse-y);
-    transform: translate(-50%, -50%);
-    border: 2px solid;
-    border-color: hsl(var(--primary)) hsl(var(--accent)) hsl(var(--primary-dark)) hsl(var(--accent-dark));
-    animation: cursor-rotate 3s linear infinite, cursor-scale 1.5s ease-in-out infinite;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(4px);
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.5s ease 0.1s;
+    background: 
+      radial-gradient(
+        600px circle at var(--mouse-x) var(--mouse-y),
+        hsl(var(--accent) / 0.15),
+        hsl(var(--accent-light) / 0.1) 25%,
+        hsl(var(--primary-dark) / 0.08) 40%,
+        transparent 60%
+      );
+    animation: glow-pulse-accent 2.5s ease-in-out infinite reverse;
   }
 
-  @keyframes cursor-pulse {
+  .care-hub-section:hover::after {
+    opacity: 1;
+  }
+
+  .care-hub-section > * {
+    position: relative;
+    z-index: 3;
+  }
+
+  @keyframes glow-pulse-primary {
     0%, 100% {
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 0.6;
+      filter: brightness(1) saturate(1) blur(0px);
+      transform: scale(1);
     }
     50% {
-      transform: translate(-50%, -50%) scale(1.5);
-      opacity: 0.8;
+      filter: brightness(1.3) saturate(1.4) blur(2px);
+      transform: scale(1.05);
     }
   }
 
-  @keyframes cursor-rotate {
-    0% {
-      transform: translate(-50%, -50%) rotate(0deg);
-    }
-    100% {
-      transform: translate(-50%, -50%) rotate(360deg);
-    }
-  }
-
-  @keyframes cursor-scale {
+  @keyframes glow-pulse-accent {
     0%, 100% {
-      border-width: 2px;
+      filter: brightness(1) saturate(1) blur(0px);
+      transform: scale(1) rotate(0deg);
     }
     50% {
-      border-width: 3px;
+      filter: brightness(1.4) saturate(1.5) blur(3px);
+      transform: scale(1.08) rotate(5deg);
     }
-  }
-
-  .care-hub-section * {
-    cursor: none !important;
   }
 }
