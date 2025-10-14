@@ -19,6 +19,15 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Card3D from "@/components/Card3D";
 import ArticleCard3D from "@/components/ArticleCard3D";
+import FeaturedArticleCard3D from "@/components/FeaturedArticleCard3D";
+
+// Import dog images
+import shihTzuHero1 from "@/assets/shih-tzu-hero-1.jpg";
+import shihTzuHero2 from "@/assets/shih-tzu-hero-2.jpg";
+import shihTzuHero3 from "@/assets/shih-tzu-hero-3.jpg";
+import shihTzuMain from "@/assets/breeds/shih-tzu-main.jpg";
+import shihTzuGallery1 from "@/assets/breeds/shih-tzu-gallery-1.jpg";
+import shihTzuGallery2 from "@/assets/breeds/shih-tzu-gallery-2.jpg";
 
 const careCategories = [
   {
@@ -64,7 +73,7 @@ const featuredArticles = [
     readTime: "8 min read",
     author: "Dr. Sarah Chen",
     publishDate: "2024-01-15",
-    image: "/api/placeholder/300/200",
+    image: shihTzuHero1,
     featured: true
   },
   {
@@ -75,7 +84,7 @@ const featuredArticles = [
     readTime: "5 min read", 
     author: "Dr. Mike Rodriguez",
     publishDate: "2024-01-12",
-    image: "/api/placeholder/300/200",
+    image: shihTzuMain,
     featured: true
   },
   {
@@ -86,7 +95,7 @@ const featuredArticles = [
     readTime: "10 min read",
     author: "Emma Wilson",
     publishDate: "2024-01-10",
-    image: "/api/placeholder/300/200", 
+    image: shihTzuGallery1, 
     featured: true
   },
   {
@@ -97,7 +106,7 @@ const featuredArticles = [
     readTime: "6 min read",
     author: "Tom Anderson",
     publishDate: "2024-01-08",
-    image: "/api/placeholder/300/200",
+    image: shihTzuHero2,
     featured: false
   },
   {
@@ -108,7 +117,7 @@ const featuredArticles = [
     readTime: "7 min read",
     author: "Lisa Martinez",
     publishDate: "2024-01-05",
-    image: "/api/placeholder/300/200",
+    image: shihTzuHero3,
     featured: false
   },
   {
@@ -119,7 +128,7 @@ const featuredArticles = [
     readTime: "9 min read",
     author: "Dr. Jennifer Kim",
     publishDate: "2024-01-03",
-    image: "/api/placeholder/300/200",
+    image: shihTzuGallery2,
     featured: false
   }
 ];
@@ -272,68 +281,71 @@ const DogCareHub = () => {
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredArticles.map((article, index) => (
-              <ArticleCard3D 
-                key={article.id}
-                className="group min-h-[520px]"
-                featured={article.featured}
-              >
-                <Card className="border-0 bg-transparent overflow-hidden h-full">
-                  <div className="relative">
-                    <img
-                      src={article.image}
-                      alt={article.title}
-                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
-                      <Badge variant="secondary" className="glass">
-                        {article.category}
-                      </Badge>
-                      {article.featured && (
-                        <Badge variant="default" className="bg-accent text-accent-foreground">
-                          <Award className="h-3 w-3 mr-1" />
-                          Featured
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredArticles.map((article, index) => {
+              const CardComponent = article.featured ? FeaturedArticleCard3D : ArticleCard3D;
+              return (
+                <CardComponent 
+                  key={article.id}
+                  className="group min-h-[520px]"
+                  {...(article.featured ? {} : { featured: article.featured })}
+                >
+                  <Card className="border-0 bg-transparent overflow-hidden h-full">
+                    <div className="relative">
+                      <img
+                        src={article.image}
+                        alt={article.title}
+                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
+                        <Badge variant="secondary" className="glass">
+                          {article.category}
                         </Badge>
-                      )}
+                        {article.featured && (
+                          <Badge variant="default" className="bg-accent text-accent-foreground">
+                            <Award className="h-3 w-3 mr-1" />
+                            Featured
+                          </Badge>
+                        )}
+                      </div>
                     </div>
-                  </div>
 
-                  <CardHeader>
-                    <CardTitle className="text-lg line-clamp-2 group-hover:text-primary transition-colors">
-                      <AnimatedText text={article.title} type="slide" />
-                    </CardTitle>
-                    <CardDescription className="line-clamp-3">
-                      <AnimatedText text={article.excerpt} type="wave" />
-                    </CardDescription>
-                  </CardHeader>
+                    <CardHeader>
+                      <CardTitle className="text-lg line-clamp-2 group-hover:text-primary transition-colors">
+                        <AnimatedText text={article.title} type="slide" />
+                      </CardTitle>
+                      <CardDescription className="line-clamp-3">
+                        <AnimatedText text={article.excerpt} type="wave" />
+                      </CardDescription>
+                    </CardHeader>
 
-                  <CardContent>
-                    <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
-                      <div className="flex items-center">
-                        <User className="h-3 w-3 mr-1" />
-                        {article.author}
+                    <CardContent>
+                      <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
+                        <div className="flex items-center">
+                          <User className="h-3 w-3 mr-1" />
+                          {article.author}
+                        </div>
+                        <div className="flex items-center">
+                          <Clock className="h-3 w-3 mr-1" />
+                          {article.readTime}
+                        </div>
                       </div>
-                      <div className="flex items-center">
-                        <Clock className="h-3 w-3 mr-1" />
-                        {article.readTime}
+                      
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center text-xs text-muted-foreground">
+                          <Calendar className="h-3 w-3 mr-1" />
+                          {new Date(article.publishDate).toLocaleDateString()}
+                        </div>
+                        <Button size="sm" variant="ghost" className="text-primary">
+                          Read More
+                          <ChevronRight className="ml-1 h-3 w-3" />
+                        </Button>
                       </div>
-                    </div>
-                    
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center text-xs text-muted-foreground">
-                        <Calendar className="h-3 w-3 mr-1" />
-                        {new Date(article.publishDate).toLocaleDateString()}
-                      </div>
-                      <Button size="sm" variant="ghost" className="text-primary">
-                        Read More
-                        <ChevronRight className="ml-1 h-3 w-3" />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </ArticleCard3D>
-            ))}
+                    </CardContent>
+                  </Card>
+                </CardComponent>
+              );
+            })}
           </div>
         </div>
 
