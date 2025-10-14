@@ -17,6 +17,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Card3D from "@/components/Card3D";
+import ArticleCard3D from "@/components/ArticleCard3D";
 
 const careCategories = [
   {
@@ -214,28 +216,30 @@ const DogCareHub = () => {
           {careCategories.map((category, index) => {
             const IconComponent = category.icon;
             return (
-              <Card 
+              <Card3D 
                 key={category.title}
-                className="hover-lift group cursor-pointer border-0 bg-card/50 backdrop-blur-sm"
+                className="group cursor-pointer h-full min-h-[280px]"
                 onClick={() => setSelectedCategory(category.title.toLowerCase().split(' ')[0])}
               >
-                <CardHeader className="text-center">
-                  <div className={`w-16 h-16 mx-auto rounded-full ${category.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    <IconComponent className={`h-8 w-8 ${category.color}`} />
-                  </div>
-                  <CardTitle className="text-lg mb-2">
-                    <AnimatedText text={category.title} type="slide" />
-                  </CardTitle>
-                  <Badge variant="outline" className="mx-auto">
-                    {category.articles} Articles
-                  </Badge>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-center text-sm">
-                    <AnimatedText text={category.description} type="wave" />
-                  </CardDescription>
-                </CardContent>
-              </Card>
+                <Card className="border-0 bg-transparent backdrop-blur-sm h-full">
+                  <CardHeader className="text-center">
+                    <div className={`w-16 h-16 mx-auto rounded-full ${category.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                      <IconComponent className={`h-8 w-8 ${category.color}`} />
+                    </div>
+                    <CardTitle className="text-lg mb-2">
+                      <AnimatedText text={category.title} type="slide" />
+                    </CardTitle>
+                    <Badge variant="outline" className="mx-auto">
+                      {category.articles} Articles
+                    </Badge>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-center text-sm">
+                      <AnimatedText text={category.description} type="wave" />
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              </Card3D>
             );
           })}
         </div>
@@ -270,62 +274,65 @@ const DogCareHub = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredArticles.map((article, index) => (
-              <Card 
+              <ArticleCard3D 
                 key={article.id}
-                className={`hover-lift group overflow-hidden ${article.featured ? 'ring-2 ring-primary/20' : ''}`}
+                className="group min-h-[520px]"
+                featured={article.featured}
               >
-                <div className="relative">
-                  <img
-                    src={article.image}
-                    alt={article.title}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
-                    <Badge variant="secondary" className="glass">
-                      {article.category}
-                    </Badge>
-                    {article.featured && (
-                      <Badge variant="default" className="bg-accent text-accent-foreground">
-                        <Award className="h-3 w-3 mr-1" />
-                        Featured
+                <Card className="border-0 bg-transparent overflow-hidden h-full">
+                  <div className="relative">
+                    <img
+                      src={article.image}
+                      alt={article.title}
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
+                      <Badge variant="secondary" className="glass">
+                        {article.category}
                       </Badge>
-                    )}
+                      {article.featured && (
+                        <Badge variant="default" className="bg-accent text-accent-foreground">
+                          <Award className="h-3 w-3 mr-1" />
+                          Featured
+                        </Badge>
+                      )}
+                    </div>
                   </div>
-                </div>
 
-                <CardHeader>
-                  <CardTitle className="text-lg line-clamp-2 group-hover:text-primary transition-colors">
-                    <AnimatedText text={article.title} type="slide" />
-                  </CardTitle>
-                  <CardDescription className="line-clamp-3">
-                    <AnimatedText text={article.excerpt} type="wave" />
-                  </CardDescription>
-                </CardHeader>
+                  <CardHeader>
+                    <CardTitle className="text-lg line-clamp-2 group-hover:text-primary transition-colors">
+                      <AnimatedText text={article.title} type="slide" />
+                    </CardTitle>
+                    <CardDescription className="line-clamp-3">
+                      <AnimatedText text={article.excerpt} type="wave" />
+                    </CardDescription>
+                  </CardHeader>
 
-                <CardContent>
-                  <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
-                    <div className="flex items-center">
-                      <User className="h-3 w-3 mr-1" />
-                      {article.author}
+                  <CardContent>
+                    <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
+                      <div className="flex items-center">
+                        <User className="h-3 w-3 mr-1" />
+                        {article.author}
+                      </div>
+                      <div className="flex items-center">
+                        <Clock className="h-3 w-3 mr-1" />
+                        {article.readTime}
+                      </div>
                     </div>
-                    <div className="flex items-center">
-                      <Clock className="h-3 w-3 mr-1" />
-                      {article.readTime}
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center text-xs text-muted-foreground">
+                        <Calendar className="h-3 w-3 mr-1" />
+                        {new Date(article.publishDate).toLocaleDateString()}
+                      </div>
+                      <Button size="sm" variant="ghost" className="text-primary">
+                        Read More
+                        <ChevronRight className="ml-1 h-3 w-3" />
+                      </Button>
                     </div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center text-xs text-muted-foreground">
-                      <Calendar className="h-3 w-3 mr-1" />
-                      {new Date(article.publishDate).toLocaleDateString()}
-                    </div>
-                    <Button size="sm" variant="ghost" className="text-primary">
-                      Read More
-                      <ChevronRight className="ml-1 h-3 w-3" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </ArticleCard3D>
             ))}
           </div>
         </div>
