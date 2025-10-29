@@ -60,6 +60,18 @@ const FeaturesSection = () => {
 
   return (
     <section className="relative py-20 bg-gradient-to-b from-background via-background/50 to-background overflow-hidden">
+      {/* Parallax Background */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-fixed opacity-10"
+        style={{
+          backgroundImage: `url(https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=2069&auto=format&fit=crop)`,
+          transform: 'translateZ(0)',
+        }}
+      ></div>
+      
+      {/* Overlay gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/80"></div>
+      
       {/* Floating decorative elements */}
       <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-float"></div>
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-float" style={{ animationDelay: "2s" }}></div>

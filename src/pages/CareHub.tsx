@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 
 const CareHub = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen cursor-paw">
       <Navigation />
       <main className="pt-16">
         <DogCareHub />
