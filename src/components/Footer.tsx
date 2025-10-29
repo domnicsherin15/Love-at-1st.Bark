@@ -55,8 +55,8 @@ const Footer = () => {
                 placeholder="Enter your email"
                 className="bg-primary-foreground text-primary border-0"
               />
-              <Button variant="secondary" size="lg">
-                Subscribe
+              <Button variant="premium" size="lg">
+                <span className="relative z-10">Subscribe</span>
               </Button>
             </div>
           </div>

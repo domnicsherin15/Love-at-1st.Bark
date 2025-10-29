@@ -275,9 +275,9 @@ const DogCareHub = () => {
                 type="rotate"
               />
             </h3>
-            <Button variant="outline">
-              View All Articles
-              <ChevronRight className="ml-2 h-4 w-4" />
+            <Button variant="neon">
+              <span className="relative z-10">View All Articles</span>
+              <ChevronRight className="relative z-10 ml-2 h-4 w-4" />
             </Button>
           </div>
 
@@ -361,13 +361,13 @@ const DogCareHub = () => {
             />
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary">
-              <Users className="mr-2 h-5 w-5" />
-              Join Community
+            <Button size="lg" variant="premium">
+              <Users className="relative z-10 mr-2 h-5 w-5" />
+              <span className="relative z-10">Join Community</span>
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
-              <BookOpen className="mr-2 h-5 w-5" />
-              Browse All Guides
+            <Button size="lg" variant="glow">
+              <BookOpen className="relative z-10 mr-2 h-5 w-5" />
+              <span className="relative z-10">Browse All Guides</span>
             </Button>
           </div>
         </div>

@@ -925,12 +925,12 @@ const BreedEncyclopedia = () => {
         {/* Load More & Stats */}
         <div className="text-center mt-12 fade-in-up stagger-4">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
-            <Button variant="outline" size="lg">
-              <Filter className="mr-2 h-4 w-4" />
-              Load More Breeds
+            <Button variant="glow" size="lg">
+              <Filter className="relative z-10 mr-2 h-4 w-4" />
+              <span className="relative z-10">Load More Breeds</span>
             </Button>
-            <Button variant="outline" size="lg">
-              Take Breed Quiz
+            <Button variant="premium" size="lg">
+              <span className="relative z-10">Take Breed Quiz</span>
             </Button>
           </div>
           <p className="text-sm text-muted-foreground">
@@ -942,9 +942,9 @@ const BreedEncyclopedia = () => {
       {/* Floating Easter Egg Hint - Fixed position */}
       <div className="fixed bottom-8 right-8 z-40 animate-float">
         <Button
-          variant="secondary"
+          variant="premium"
           size="lg"
-          className="glass rounded-full shadow-elegant hover:scale-110 transition-all duration-300 group"
+          className="rounded-full group"
           onClick={() => {
             confetti({
               particleCount: 30,
@@ -957,8 +957,8 @@ const BreedEncyclopedia = () => {
             });
           }}
         >
-          <Sparkles className="h-5 w-5 mr-2 group-hover:rotate-180 transition-transform duration-500" />
-          Easter Eggs
+          <Sparkles className="relative z-10 h-5 w-5 mr-2 group-hover:rotate-180 transition-transform duration-500" />
+          <span className="relative z-10">Easter Eggs</span>
         </Button>
       </div>
     </section>

@@ -182,9 +182,9 @@ const FeaturesSection = () => {
 
         {/* CTA Section */}
         <div className="text-center mt-16 fade-in-up">
-          <Button size="lg" className="btn-glow group hover:scale-105 transition-all duration-300 text-lg px-8 py-6">
-            Explore All Features
-            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+          <Button variant="premium" size="lg" className="group text-lg px-8 py-6">
+            <span className="relative z-10">Explore All Features</span>
+            <ArrowRight className="relative z-10 ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
           </Button>
         </div>
       </div>

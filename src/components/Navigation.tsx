@@ -52,8 +52,8 @@ const Navigation = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button variant="default" className="btn-glow hover:scale-105 transition-all duration-300 hover:shadow-elegant" onClick={() => navigate('/auth')}>
-              Join Community
+            <Button variant="glow" onClick={() => navigate('/auth')}>
+              <span className="relative z-10">Join Community</span>
             </Button>
           </div>
 
@@ -84,8 +84,8 @@ const Navigation = () => {
                   {item.name}
                 </Link>
               ))}
-              <Button variant="default" className="mt-4 hover:scale-105 transition-all duration-300" onClick={() => { navigate('/auth'); setIsOpen(false); }}>
-                Join Community
+              <Button variant="glow" className="mt-4" onClick={() => { navigate('/auth'); setIsOpen(false); }}>
+                <span className="relative z-10">Join Community</span>
               </Button>
             </div>
           </div>

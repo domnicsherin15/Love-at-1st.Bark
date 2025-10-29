@@ -80,13 +80,13 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 fade-in-up stagger-4">
-            <Button size="lg" className="btn-glow text-lg px-8" onClick={() => navigate('/breeds')}>
-              Explore Breeds
-              <ArrowRight className="ml-2 h-5 w-5" />
+            <Button size="lg" variant="premium" className="text-lg px-8 group" onClick={() => navigate('/breeds')}>
+              <span className="relative z-10">Explore Breeds</span>
+              <ArrowRight className="relative z-10 ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8 glass" onClick={() => navigate('/care-hub')}>
-              <Play className="mr-2 h-5 w-5" />
-              Care Guide
+            <Button size="lg" variant="neon" className="text-lg px-8 group" onClick={() => navigate('/care-hub')}>
+              <Play className="relative z-10 mr-2 h-5 w-5" />
+              <span className="relative z-10">Care Guide</span>
             </Button>
           </div>
 
