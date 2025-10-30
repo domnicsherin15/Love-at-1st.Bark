@@ -84,7 +84,7 @@ const HeroSection = () => {
               <span className="relative z-10">Explore Breeds</span>
               <ArrowRight className="relative z-10 ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button size="lg" variant="neon" className="text-lg px-8 group" onClick={() => navigate('/care-hub')}>
+            <Button size="lg" variant="neon" className="text-lg px-8 group" onClick={() => navigate('/care')}>
               <Play className="relative z-10 mr-2 h-5 w-5" />
               <span className="relative z-10">Care Guide</span>
             </Button>

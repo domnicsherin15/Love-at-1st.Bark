@@ -19,7 +19,8 @@ const Navigation = () => {
   const navItems = [
     { name: "Discover", href: "/" },
     { name: "Breeds", href: "/breeds" },
-    { name: "Care & Health", href: "/care-hub" },
+    { name: "Care", href: "/care" },
+    { name: "Health", href: "/health" },
     { name: "Join Community", href: "/auth" }
   ];
 
