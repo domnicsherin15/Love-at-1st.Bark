@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { Mail, Lock, User, Eye, EyeOff, Heart, Crown, Star, Sparkles, Users, Trophy, Award, Shield, Zap, Target, Gift, MessageCircle, Calendar, BookOpen, CheckCircle, TrendingUp, Verified, ArrowRight, Play, ChevronDown, Phone, MapPin, Clock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Mail, Lock, User, Eye, EyeOff, Heart, Crown, Star, Sparkles, Users, Trophy, Award, Shield, Zap, Target, Gift, MessageCircle, Calendar, BookOpen, CheckCircle, TrendingUp, Verified, ArrowRight, Play, ChevronDown, Phone, MapPin, Clock, ArrowLeft, Home, Activity, Stethoscope, BookMarked } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,8 +19,16 @@ import {
 import shihTzuHero1 from "@/assets/shih-tzu-hero-1.jpg";
 import shihTzuHero2 from "@/assets/shih-tzu-hero-2.jpg";
 import shihTzuHero3 from "@/assets/shih-tzu-hero-3.jpg";
+import authBackground from "@/assets/auth-background.jpg";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const UserAuth = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -31,6 +40,13 @@ const UserAuth = () => {
   const [passwordStrength, setPasswordStrength] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+
+  const navigationLinks = [
+    { name: "Home", path: "/", icon: Home },
+    { name: "Care", path: "/care-hub", icon: Activity },
+    { name: "Health", path: "/health", icon: Stethoscope },
+    { name: "Breeds", path: "/breeds", icon: BookMarked },
+  ];
 
   const [loginData, setLoginData] = useState({
     email: "",
@@ -257,6 +273,15 @@ const UserAuth = () => {
         fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
       }}
     >
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ 
+          backgroundImage: `url(${authBackground})`,
+          filter: 'brightness(0.4)'
+        }}
+      />
+
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Golden Gradient Orbs */}
@@ -304,6 +329,43 @@ const UserAuth = () => {
             backgroundSize: '50px 50px'
           }}
         />
+      </div>
+
+      {/* Back Button with Dropdown - Top Left Corner */}
+      <div className="absolute top-8 left-8 z-50">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              className="group flex items-center gap-3 px-6 py-6 rounded-full backdrop-blur-xl border-2 border-yellow-500/40 bg-black/50 hover:bg-black/70 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_40px_rgba(255,215,0,0.4)] font-professional"
+            >
+              <ArrowLeft className="h-6 w-6 text-yellow-500 group-hover:translate-x-[-4px] transition-transform" />
+              <span className="text-lg font-semibold bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 bg-clip-text text-transparent">
+                Navigate
+              </span>
+              <ChevronDown className="h-5 w-5 text-yellow-500" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent 
+            className="w-56 mt-2 backdrop-blur-xl border-2 border-yellow-500/40 bg-black/90 z-[100]"
+            align="start"
+          >
+            {navigationLinks.map((link) => {
+              const IconComponent = link.icon;
+              return (
+                <DropdownMenuItem
+                  key={link.path}
+                  onClick={() => navigate(link.path)}
+                  className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-yellow-500/20 focus:bg-yellow-500/20 transition-all duration-200 group"
+                >
+                  <IconComponent className="h-5 w-5 text-yellow-400 group-hover:scale-110 transition-transform" />
+                  <span className="text-yellow-200 group-hover:text-yellow-300 font-medium font-professional">
+                    {link.name}
+                  </span>
+                </DropdownMenuItem>
+              );
+            })}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
 
       {/* Floating Logo - Top Right Corner */}
