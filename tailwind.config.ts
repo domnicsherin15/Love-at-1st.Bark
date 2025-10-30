@@ -21,6 +21,7 @@ export default {
 			fontFamily: {
 				'sans': ['Outfit', 'system-ui', 'sans-serif'],
 				'heading': ['Fredoka', 'Outfit', 'system-ui', 'sans-serif'],
+				'professional': ['Poppins', 'system-ui', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

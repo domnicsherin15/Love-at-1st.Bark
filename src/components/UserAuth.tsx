@@ -339,7 +339,7 @@ const UserAuth = () => {
               🎉 Limited Time: First 1000 Members Get Premium Free!
             </Badge>
             
-            <h1 className="text-5xl md:text-8xl font-black leading-tight">
+            <h1 className="text-3xl md:text-5xl font-professional font-bold leading-tight tracking-tight">
               <span className="block bg-gradient-to-r from-yellow-300 via-amber-400 to-yellow-500 bg-clip-text text-transparent animate-gradient">
                 Join The World's
               </span>
