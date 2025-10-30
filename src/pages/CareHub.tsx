@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import DogCareHub from "@/components/DogCareHub";
-import Footer from "@/components/Footer";
 import DogLoadingAnimation from "@/components/DogLoadingAnimation";
 
 const CareHub = () => {
@@ -26,7 +25,6 @@ const CareHub = () => {
       <main className="pt-16">
         <DogCareHub />
       </main>
-      <Footer />
     </div>
   );
 };
