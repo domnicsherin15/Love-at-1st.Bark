@@ -19,7 +19,7 @@ import {
 import shihTzuHero1 from "@/assets/shih-tzu-hero-1.jpg";
 import shihTzuHero2 from "@/assets/shih-tzu-hero-2.jpg";
 import shihTzuHero3 from "@/assets/shih-tzu-hero-3.jpg";
-import authBackground from "@/assets/auth-background.jpg";
+import goldenShihTzuRender from "@/assets/golden-shih-tzu-render.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -270,15 +270,18 @@ const UserAuth = () => {
       className="min-h-screen relative overflow-hidden"
       style={{ 
         background: '#0a0a0a',
-        fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
+        fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+        cursor: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' viewBox=\'0 0 32 32\'%3E%3Cpath d=\'M16 2L20 14L32 16L20 18L16 30L12 18L0 16L12 14Z\' fill=\'%23FFD700\' stroke=\'%23FFA500\' stroke-width=\'1\'/%3E%3C/svg%3E") 16 16, auto'
       }}
     >
-      {/* Background Image */}
+      {/* Golden Shih-Tzu Render Background */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ 
-          backgroundImage: `url(${authBackground})`,
-          filter: 'brightness(0.4)'
+        className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none"
+        style={{
+          backgroundImage: `url(${goldenShihTzuRender})`,
+          backgroundSize: '60%',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
         }}
       />
 
@@ -336,7 +339,8 @@ const UserAuth = () => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
-              className="group flex items-center gap-3 px-6 py-6 rounded-full backdrop-blur-xl border-2 border-yellow-500/40 bg-black/50 hover:bg-black/70 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_40px_rgba(255,215,0,0.4)] font-professional"
+              className="group flex items-center gap-3 px-6 py-6 rounded-full backdrop-blur-xl border-2 border-yellow-500/40 bg-black/50 hover:bg-black/70 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_40px_rgba(255,215,0,0.4)] font-professional cursor-pointer"
+              style={{ cursor: 'pointer' }}
             >
               <ArrowLeft className="h-6 w-6 text-yellow-500 group-hover:translate-x-[-4px] transition-transform" />
               <span className="text-lg font-semibold bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 bg-clip-text text-transparent">
