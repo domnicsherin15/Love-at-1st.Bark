@@ -334,37 +334,69 @@ const UserAuth = () => {
         />
       </div>
 
-      {/* Back Button with Dropdown - Top Left Corner */}
+      {/* Unique Navigate Button - Top Left Corner */}
       <div className="absolute top-8 left-8 z-50">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              className="group flex items-center gap-3 px-6 py-6 rounded-full backdrop-blur-xl border-2 border-yellow-500/40 bg-black/50 hover:bg-black/70 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_40px_rgba(255,215,0,0.4)] font-professional cursor-pointer"
+            <button
+              className="group relative flex items-center gap-2 px-8 py-4 font-professional font-bold text-base
+                         bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600
+                         text-black rounded-xl 
+                         shadow-[0_0_20px_rgba(255,215,0,0.5)] 
+                         hover:shadow-[0_0_40px_rgba(255,215,0,0.8)]
+                         hover:scale-105
+                         transition-all duration-300
+                         border-2 border-yellow-400
+                         overflow-hidden
+                         cursor-pointer"
               style={{ cursor: 'pointer' }}
             >
-              <ArrowLeft className="h-6 w-6 text-yellow-500 group-hover:translate-x-[-4px] transition-transform" />
-              <span className="text-lg font-semibold bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 bg-clip-text text-transparent">
-                Navigate
-              </span>
-              <ChevronDown className="h-5 w-5 text-yellow-500" />
-            </Button>
+              {/* Shine effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent 
+                            translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+              
+              <ArrowLeft className="h-5 w-5 relative z-10 group-hover:translate-x-[-4px] transition-transform" />
+              <span className="relative z-10 tracking-wide">NAVIGATE</span>
+              <ChevronDown className="h-4 w-4 relative z-10 group-hover:rotate-180 transition-transform duration-300" />
+            </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent 
-            className="w-56 mt-2 backdrop-blur-xl border-2 border-yellow-500/40 bg-black/90 z-[100]"
+            className="w-64 mt-3 backdrop-blur-xl border-2 border-amber-500/60 bg-gradient-to-b from-black/95 to-zinc-900/95 shadow-[0_0_30px_rgba(255,215,0,0.3)] z-[100]"
             align="start"
           >
-            {navigationLinks.map((link) => {
+            {navigationLinks.map((link, index) => {
               const IconComponent = link.icon;
               return (
                 <DropdownMenuItem
                   key={link.path}
                   onClick={() => navigate(link.path)}
-                  className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-yellow-500/20 focus:bg-yellow-500/20 transition-all duration-200 group"
+                  className="flex items-center gap-4 px-5 py-4 cursor-pointer 
+                           hover:bg-gradient-to-r hover:from-yellow-500/20 hover:to-amber-500/20
+                           focus:bg-gradient-to-r focus:from-yellow-500/20 focus:to-amber-500/20
+                           transition-all duration-200 group
+                           border-b border-yellow-500/10 last:border-0
+                           relative overflow-hidden"
+                  style={{ 
+                    cursor: 'pointer',
+                    animationDelay: `${index * 50}ms` 
+                  }}
                 >
-                  <IconComponent className="h-5 w-5 text-yellow-400 group-hover:scale-110 transition-transform" />
-                  <span className="text-yellow-200 group-hover:text-yellow-300 font-medium font-professional">
+                  <div className="absolute left-0 w-1 h-full bg-gradient-to-b from-yellow-400 to-amber-600 
+                                scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top" />
+                  
+                  <div className="p-2 rounded-lg bg-gradient-to-br from-yellow-500/20 to-amber-600/20 
+                                group-hover:from-yellow-500/30 group-hover:to-amber-600/30
+                                transition-all duration-200">
+                    <IconComponent className="h-5 w-5 text-yellow-400 group-hover:scale-110 group-hover:rotate-12 transition-all duration-200" />
+                  </div>
+                  
+                  <span className="text-yellow-100 group-hover:text-yellow-300 font-semibold font-professional text-base
+                                 group-hover:translate-x-1 transition-all duration-200">
                     {link.name}
                   </span>
+                  
+                  <ArrowRight className="h-4 w-4 text-yellow-500/50 ml-auto opacity-0 group-hover:opacity-100 
+                                       translate-x-[-10px] group-hover:translate-x-0 transition-all duration-200" />
                 </DropdownMenuItem>
               );
             })}
