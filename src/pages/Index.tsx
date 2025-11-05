@@ -3,69 +3,98 @@ import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import Footer from "@/components/Footer";
-import heroDogs from "@/assets/hero-dogs.jpg";
-import shihtzu1 from "@/assets/shih-tzu-hero-1.jpg";
-import shihtzu2 from "@/assets/shih-tzu-hero-2.jpg";
-import shihtzu3 from "@/assets/shih-tzu-hero-3.jpg";
-import dogPortrait1 from "@/assets/dog-portrait-1.jpg";
-import dogPortrait2 from "@/assets/dog-portrait-2.jpg";
+import { Slider } from "@/components/ui/slider";
+import { Settings } from "lucide-react";
 
 const Index = () => {
-  const [currentImage, setCurrentImage] = useState(0);
   const [floatOffset, setFloatOffset] = useState(0);
-  
-  const backgroundImages = [
-    heroDogs,
-    shihtzu1,
-    shihtzu2,
-    shihtzu3,
-    dogPortrait1,
-    dogPortrait2
-  ];
+  const [opacity, setOpacity] = useState([40]);
+  const [blur, setBlur] = useState([3]);
+  const [showControls, setShowControls] = useState(false);
 
   useEffect(() => {
-    // Change image every 2 seconds
-    const imageInterval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % backgroundImages.length);
-    }, 2000);
-
     // Floating animation
     const floatAnimation = setInterval(() => {
       setFloatOffset((prev) => (prev + 1) % 360);
     }, 50);
 
     return () => {
-      clearInterval(imageInterval);
       clearInterval(floatAnimation);
     };
-  }, [backgroundImages.length]);
+  }, []);
 
   const floatY = Math.sin(floatOffset * 0.05) * 20;
 
   return (
     <div className="min-h-screen cursor-paw relative">
-      {/* Floating Background Image Layer */}
+      {/* Floating Background Video Layer */}
       <div className="fixed inset-0 z-0 overflow-hidden">
-        {backgroundImages.map((image, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentImage ? "opacity-40" : "opacity-0"
-            }`}
+        <div
+          className="absolute inset-0"
+          style={{
+            transform: `translateY(${floatY}px) scale(1.1)`,
+            transition: "transform 3s ease-in-out",
+            opacity: opacity[0] / 100
+          }}
+        >
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
             style={{
-              transform: `translateY(${floatY}px) scale(1.1)`,
-              transition: "transform 3s ease-in-out"
+              filter: `blur(${blur[0]}px)`
             }}
           >
-            <img
-              src={image}
-              alt={`Floating background ${index + 1}`}
-              className="w-full h-full object-cover blur-[3px]"
-            />
-          </div>
-        ))}
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-dog-running-in-a-park-4053-large.mp4" type="video/mp4" />
+          </video>
+        </div>
         <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background/70" />
       </div>
+
+      {/* Background Controls */}
+      <button
+        onClick={() => setShowControls(!showControls)}
+        className="fixed top-24 right-6 z-50 p-3 bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-full hover:bg-primary/30 transition-all"
+        aria-label="Toggle background controls"
+      >
+        <Settings className="w-5 h-5 text-primary" />
+      </button>
+
+      {showControls && (
+        <div className="fixed top-40 right-6 z-50 p-6 bg-background/95 backdrop-blur-md border border-primary/30 rounded-lg shadow-elegant w-80 space-y-6">
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-foreground flex justify-between">
+              <span>Background Opacity</span>
+              <span className="text-primary">{opacity[0]}%</span>
+            </label>
+            <Slider
+              value={opacity}
+              onValueChange={setOpacity}
+              min={0}
+              max={100}
+              step={1}
+              className="w-full"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-foreground flex justify-between">
+              <span>Blur Level</span>
+              <span className="text-primary">{blur[0]}px</span>
+            </label>
+            <Slider
+              value={blur}
+              onValueChange={setBlur}
+              min={0}
+              max={20}
+              step={1}
+              className="w-full"
+            />
+          </div>
+        </div>
+      )}
 
       {/* Content */}
       <div className="relative z-10">
