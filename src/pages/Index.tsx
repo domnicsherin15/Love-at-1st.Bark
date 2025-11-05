@@ -50,7 +50,7 @@ const Index = () => {
           <div
             key={index}
             className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentImage ? "opacity-20" : "opacity-0"
+              index === currentImage ? "opacity-40" : "opacity-0"
             }`}
             style={{
               transform: `translateY(${floatY}px) scale(1.1)`,
@@ -60,11 +60,11 @@ const Index = () => {
             <img
               src={image}
               alt={`Floating background ${index + 1}`}
-              className="w-full h-full object-cover blur-sm"
+              className="w-full h-full object-cover blur-[3px]"
             />
           </div>
         ))}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background/70" />
       </div>
 
       {/* Content */}
