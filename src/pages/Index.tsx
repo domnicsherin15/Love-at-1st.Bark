@@ -11,6 +11,7 @@ const Index = () => {
   const [opacity, setOpacity] = useState([40]);
   const [blur, setBlur] = useState([3]);
   const [showControls, setShowControls] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     // Floating animation
@@ -18,22 +19,31 @@ const Index = () => {
       setFloatOffset((prev) => (prev + 1) % 360);
     }, 50);
 
+    // Parallax scroll effect
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
     return () => {
       clearInterval(floatAnimation);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
   const floatY = Math.sin(floatOffset * 0.05) * 20;
+  const parallaxY = scrollY * 0.5; // Move at 50% speed of scroll
 
   return (
     <div className="min-h-screen cursor-paw relative">
-      {/* Floating Background Video Layer */}
+      {/* Floating Background Video Layer with Parallax */}
       <div className="fixed inset-0 z-0 overflow-hidden">
         <div
           className="absolute inset-0"
           style={{
-            transform: `translateY(${floatY}px) scale(1.1)`,
-            transition: "transform 3s ease-in-out",
+            transform: `translateY(${floatY + parallaxY}px) scale(1.1)`,
+            transition: "transform 0.1s ease-out",
             opacity: opacity[0] / 100
           }}
         >
