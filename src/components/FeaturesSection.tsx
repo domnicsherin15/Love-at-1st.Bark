@@ -3,6 +3,7 @@ import { Heart, BookOpen, Home, Users, Zap, Shield, Sparkles, ArrowRight } from 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import Card3D from "@/components/Card3D";
 
 const features = [
   {
@@ -96,49 +97,51 @@ const FeaturesSection = () => {
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
           {features.map((feature, index) => {
             const IconComponent = feature.icon;
             const isHovered = hoveredCard === index;
             
             return (
-              <Card 
+              <Card3D
                 key={feature.title}
-                onMouseEnter={() => setHoveredCard(index)}
-                onMouseLeave={() => setHoveredCard(null)}
-                className={`group relative border-2 border-border/50 backdrop-blur-sm transition-all duration-500 overflow-hidden
-                  ${isHovered ? 'scale-105 shadow-elegant border-primary/50 -translate-y-2' : 'hover:border-border'}
-                  fade-in-up stagger-${index % 4 + 1}`}
+                className="h-full"
               >
-                {/* Gradient background overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
-                
-                {/* Animated border glow */}
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-accent rounded-lg opacity-0 group-hover:opacity-20 blur transition-opacity duration-500"></div>
-                
-                <CardHeader className="relative z-10">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className={`w-14 h-14 rounded-xl ${feature.bgColor} flex items-center justify-center 
-                      group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg`}>
-                      <IconComponent className={`h-7 w-7 ${feature.color} group-hover:scale-110 transition-transform duration-300`} />
+                <Card 
+                  onMouseEnter={() => setHoveredCard(index)}
+                  onMouseLeave={() => setHoveredCard(null)}
+                  className={`group relative h-full border-2 border-border/50 backdrop-blur-sm transition-all duration-500 overflow-hidden
+                    ${isHovered ? 'shadow-elegant border-primary/50' : 'hover:border-border'}
+                    fade-in-up stagger-${index % 4 + 1}`}
+                >
+                  {/* Gradient background overlay */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+                  
+                  {/* Animated border glow */}
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-accent rounded-lg opacity-0 group-hover:opacity-20 blur transition-opacity duration-500"></div>
+                  
+                  <CardHeader className="relative z-10 p-3">
+                    <div className="flex flex-col items-center justify-center mb-2">
+                      <div className={`w-10 h-10 rounded-xl ${feature.bgColor} flex items-center justify-center 
+                        group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg mb-2`}>
+                        <IconComponent className={`h-5 w-5 ${feature.color} group-hover:scale-110 transition-transform duration-300`} />
+                      </div>
                     </div>
-                    <ArrowRight className={`h-5 w-5 text-muted-foreground transition-all duration-300 
-                      ${isHovered ? 'translate-x-0 opacity-100' : '-translate-x-2 opacity-0'}`} />
-                  </div>
-                  <CardTitle className="text-xl mb-3 group-hover:text-primary transition-colors duration-300">
-                    {feature.title}
-                  </CardTitle>
-                </CardHeader>
-                
-                <CardContent className="relative z-10">
-                  <CardDescription className="text-base leading-relaxed group-hover:text-foreground/80 transition-colors duration-300">
-                    {feature.description}
-                  </CardDescription>
-                </CardContent>
+                    <CardTitle className="text-sm text-center mb-2 group-hover:text-primary transition-colors duration-300">
+                      {feature.title}
+                    </CardTitle>
+                  </CardHeader>
+                  
+                  <CardContent className="relative z-10 p-3 pt-0">
+                    <CardDescription className="text-xs leading-relaxed text-center group-hover:text-foreground/80 transition-colors duration-300">
+                      {feature.description}
+                    </CardDescription>
+                  </CardContent>
 
-                {/* Decorative corner accent */}
-                <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              </Card>
+                  {/* Decorative corner accent */}
+                  <div className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </Card>
+              </Card3D>
             );
           })}
         </div>
