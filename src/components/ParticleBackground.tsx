@@ -13,6 +13,7 @@ interface Particle {
 
 const ParticleBackground = () => {
   const [particles, setParticles] = useState<Particle[]>([]);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     // Generate random particles
@@ -38,6 +39,36 @@ const ParticleBackground = () => {
 
     generateParticles();
   }, []);
+
+  useEffect(() => {
+    // Track mouse position
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth) * 100,
+        y: (e.clientY / window.innerHeight) * 100,
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  // Calculate particle offset based on mouse proximity
+  const getParticleOffset = (particle: Particle) => {
+    const dx = particle.x - mousePosition.x;
+    const dy = particle.y - mousePosition.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    const threshold = 15; // Distance threshold in percentage
+    
+    if (distance < threshold) {
+      const force = (threshold - distance) / threshold;
+      const offsetX = (dx / distance) * force * 50; // Push away
+      const offsetY = (dy / distance) * force * 50;
+      return { x: offsetX, y: offsetY };
+    }
+    
+    return { x: 0, y: 0 };
+  };
 
   const PawPrint = ({ size, opacity }: { size: number; opacity: number }) => (
     <svg
@@ -74,24 +105,28 @@ const ParticleBackground = () => {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[5] overflow-hidden">
-      {particles.map((particle) => (
-        <div
-          key={particle.id}
-          className="absolute animate-float-particle"
-          style={{
-            left: `${particle.x}%`,
-            top: `${particle.y}%`,
-            animationDuration: `${particle.duration}s`,
-            animationDelay: `${particle.delay}s`,
-          }}
-        >
-          {particle.type === 'paw' ? (
-            <PawPrint size={particle.size} opacity={particle.opacity} />
-          ) : (
-            <BoneShape size={particle.size} opacity={particle.opacity} />
-          )}
-        </div>
-      ))}
+      {particles.map((particle) => {
+        const offset = getParticleOffset(particle);
+        return (
+          <div
+            key={particle.id}
+            className="absolute animate-float-particle transition-transform duration-300 ease-out"
+            style={{
+              left: `${particle.x}%`,
+              top: `${particle.y}%`,
+              animationDuration: `${particle.duration}s`,
+              animationDelay: `${particle.delay}s`,
+              transform: `translate(${offset.x}px, ${offset.y}px)`,
+            }}
+          >
+            {particle.type === 'paw' ? (
+              <PawPrint size={particle.size} opacity={particle.opacity} />
+            ) : (
+              <BoneShape size={particle.size} opacity={particle.opacity} />
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 };
