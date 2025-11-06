@@ -139,6 +139,83 @@
   body {
     @apply bg-background text-foreground font-sans;
   }
+
+  /* Custom Scrollbar Styles */
+  /* For Webkit browsers (Chrome, Safari, Edge) */
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--secondary));
+    border-radius: 10px;
+    margin: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary)) 0%,
+      hsl(var(--primary-dark)) 50%,
+      hsl(var(--accent)) 100%
+    );
+    border-radius: 10px;
+    border: 2px solid hsl(var(--secondary));
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px hsl(var(--primary) / 0.3);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary-light)) 0%,
+      hsl(var(--primary)) 50%,
+      hsl(var(--accent-light)) 100%
+    );
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.6);
+    border-color: hsl(var(--primary-light));
+  }
+
+  ::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary-dark)) 0%,
+      hsl(var(--primary)) 50%,
+      hsl(var(--accent-dark)) 100%
+    );
+  }
+
+  /* For Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--primary)) hsl(var(--secondary));
+  }
+
+  /* Dark mode scrollbar adjustments */
+  .dark ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary)) 0%,
+      hsl(210 100% 40%) 50%,
+      hsl(var(--accent)) 100%
+    );
+    border-color: hsl(var(--border));
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+      135deg,
+      hsl(210 100% 70%) 0%,
+      hsl(210 100% 56%) 50%,
+      hsl(330 100% 70%) 100%
+    );
+    box-shadow: 0 0 25px hsl(var(--primary) / 0.8);
+  }
   
   @keyframes float {
     0%, 100% {
