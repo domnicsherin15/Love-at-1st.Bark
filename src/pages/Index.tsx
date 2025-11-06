@@ -3,6 +3,7 @@ import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import Footer from "@/components/Footer";
+import ParticleBackground from "@/components/ParticleBackground";
 import { Slider } from "@/components/ui/slider";
 import { Settings } from "lucide-react";
 
@@ -37,6 +38,9 @@ const Index = () => {
 
   return (
     <div className="min-h-screen cursor-paw relative">
+      {/* Particle Background */}
+      <ParticleBackground />
+      
       {/* Floating Background Video Layer with Parallax */}
       <div className="fixed inset-0 z-0 overflow-hidden">
         <div
