@@ -53,6 +53,16 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
+          {/* Personalized Greeting */}
+          <div className="mb-4 fade-in-up stagger-1">
+            <p className="text-sm md:text-base text-muted-foreground italic">
+              For <span className="text-primary font-semibold">Bhavani</span> —
+            </p>
+            <p className="text-xs md:text-sm text-muted-foreground/80">
+              A tiny Shih-Tzu corner I made because you smiled at puppies once ✨
+            </p>
+          </div>
+
           {/* Badge */}
           <Badge variant="secondary" className="mb-6 fade-in-up stagger-1">
             <Star className="h-4 w-4 mr-1" />

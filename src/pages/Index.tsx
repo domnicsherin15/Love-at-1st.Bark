@@ -4,6 +4,10 @@ import HeroSection from "@/components/HeroSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import Footer from "@/components/Footer";
 import ParticleBackground from "@/components/ParticleBackground";
+import LoveNoteOverlay from "@/components/LoveNoteOverlay";
+import PawTrail from "@/components/PawTrail";
+import ECard from "@/components/ECard";
+import { useEasterEgg } from "@/hooks/useEasterEgg";
 import { Slider } from "@/components/ui/slider";
 import { Settings } from "lucide-react";
 
@@ -13,6 +17,9 @@ const Index = () => {
   const [blur, setBlur] = useState([3]);
   const [showControls, setShowControls] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const [showPawTrail, setShowPawTrail] = useState(false);
+  
+  const { isActive: showLoveNote, reset: closeLoveNote } = useEasterEgg("luv");
 
   useEffect(() => {
     // Floating animation
@@ -27,9 +34,21 @@ const Index = () => {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
 
+    // Show paw trail after 3 seconds
+    const pawTrailTimer = setTimeout(() => {
+      setShowPawTrail(true);
+    }, 3000);
+
+    // Hide paw trail after 15 seconds
+    const hidePawTrailTimer = setTimeout(() => {
+      setShowPawTrail(false);
+    }, 18000);
+
     return () => {
       clearInterval(floatAnimation);
       window.removeEventListener('scroll', handleScroll);
+      clearTimeout(pawTrailTimer);
+      clearTimeout(hidePawTrailTimer);
     };
   }, []);
 
@@ -110,12 +129,17 @@ const Index = () => {
         </div>
       )}
 
+      {/* Romantic Elements */}
+      {showPawTrail && <PawTrail />}
+      <LoveNoteOverlay isOpen={showLoveNote} onClose={closeLoveNote} />
+
       {/* Content */}
       <div className="relative z-10">
         <Navigation />
         <main>
           <HeroSection />
           <FeaturesSection />
+          <ECard />
         </main>
         <Footer />
       </div>
