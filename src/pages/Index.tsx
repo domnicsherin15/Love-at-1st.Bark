@@ -7,6 +7,7 @@ import ParticleBackground from "@/components/ParticleBackground";
 import LoveNoteOverlay from "@/components/LoveNoteOverlay";
 import PawTrail from "@/components/PawTrail";
 import ECard from "@/components/ECard";
+import SecretPlaylist from "@/components/SecretPlaylist";
 import { useEasterEgg } from "@/hooks/useEasterEgg";
 import { Slider } from "@/components/ui/slider";
 import { Settings } from "lucide-react";
@@ -132,6 +133,7 @@ const Index = () => {
       {/* Romantic Elements */}
       {showPawTrail && <PawTrail />}
       <LoveNoteOverlay isOpen={showLoveNote} onClose={closeLoveNote} />
+      <SecretPlaylist />
 
       {/* Content */}
       <div className="relative z-10">
