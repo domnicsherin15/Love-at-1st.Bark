@@ -654,7 +654,65 @@
     }
   }
 
+  /* Grooming guide micro-animations */
+  @keyframes brush-stroke {
+    0%, 100% { 
+      transform: translateX(0) rotate(0deg);
+      opacity: 1;
+    }
+    25% { 
+      transform: translateX(-8px) rotate(-15deg);
+      opacity: 0.8;
+    }
+    75% { 
+      transform: translateX(8px) rotate(15deg);
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes water-ripple {
+    0% { 
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% { 
+      transform: scale(1.2);
+      opacity: 0.6;
+    }
+    100% { 
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes kibble-drop {
+    0% { 
+      transform: translateY(-10px) rotate(0deg);
+      opacity: 0;
+    }
+    50% { 
+      transform: translateY(5px) rotate(180deg);
+      opacity: 1;
+    }
+    100% { 
+      transform: translateY(0) rotate(360deg);
+      opacity: 1;
+    }
+  }
+
   .animate-float-heart {
     animation: float-heart 6s ease-in-out infinite;
+  }
+
+  .animate-brush-stroke {
+    animation: brush-stroke 1.5s ease-in-out infinite;
+  }
+
+  .animate-water-ripple {
+    animation: water-ripple 2s ease-in-out infinite;
+  }
+
+  .animate-kibble-drop {
+    animation: kibble-drop 2s ease-in-out infinite;
   }
 }
