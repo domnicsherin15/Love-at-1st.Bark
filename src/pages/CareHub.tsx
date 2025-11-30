@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import DogCareHub from "@/components/DogCareHub";
 import DogLoadingAnimation from "@/components/DogLoadingAnimation";
+import PageTransition from "@/components/PageTransition";
 
 const CareHub = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,12 +21,14 @@ const CareHub = () => {
   }
 
   return (
-    <div className="min-h-screen cursor-paw">
-      <Navigation />
-      <main className="pt-16">
-        <DogCareHub />
-      </main>
-    </div>
+    <PageTransition variant="slideUp">
+      <div className="min-h-screen cursor-paw">
+        <Navigation />
+        <main className="pt-16">
+          <DogCareHub />
+        </main>
+      </div>
+    </PageTransition>
   );
 };
 

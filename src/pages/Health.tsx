@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import HealthSection from "@/components/HealthSection";
 import DogLoadingAnimation from "@/components/DogLoadingAnimation";
+import PageTransition from "@/components/PageTransition";
 
 const Health = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -19,12 +20,14 @@ const Health = () => {
   }
 
   return (
-    <div className="min-h-screen cursor-paw">
-      <Navigation />
-      <main className="pt-16">
-        <HealthSection />
-      </main>
-    </div>
+    <PageTransition variant="fade">
+      <div className="min-h-screen cursor-paw">
+        <Navigation />
+        <main className="pt-16">
+          <HealthSection />
+        </main>
+      </div>
+    </PageTransition>
   );
 };
 
