@@ -11,6 +11,7 @@ import SecretPlaylist from "@/components/SecretPlaylist";
 import { useEasterEgg } from "@/hooks/useEasterEgg";
 import { Slider } from "@/components/ui/slider";
 import { Settings } from "lucide-react";
+import PageTransition from "@/components/PageTransition";
 
 const Index = () => {
   const [floatOffset, setFloatOffset] = useState(0);
@@ -57,7 +58,8 @@ const Index = () => {
   const parallaxY = scrollY * 0.5; // Move at 50% speed of scroll
 
   return (
-    <div className="min-h-screen cursor-paw relative">
+    <PageTransition variant="fade">
+      <div className="min-h-screen cursor-paw relative">
       {/* Particle Background */}
       <ParticleBackground />
       
@@ -146,6 +148,7 @@ const Index = () => {
         <Footer />
       </div>
     </div>
+    </PageTransition>
   );
 };
 
