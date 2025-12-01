@@ -1,25 +1,8 @@
-import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import DogCareHub from "@/components/DogCareHub";
-import DogLoadingAnimation from "@/components/DogLoadingAnimation";
 import PageTransition from "@/components/PageTransition";
 
 const CareHub = () => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Show loading animation for 2 seconds
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (isLoading) {
-    return <DogLoadingAnimation />;
-  }
-
   return (
     <PageTransition variant="slideUp">
       <div className="min-h-screen cursor-paw">

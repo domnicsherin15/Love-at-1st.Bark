@@ -9,34 +9,24 @@ import shihtzu3 from "@/assets/shih-tzu-hero-3.jpg";
 
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [parallaxOffset, setParallaxOffset] = useState(0);
   const navigate = useNavigate();
 
   const images = [shihtzu1, shihtzu2, shihtzu3];
 
   useEffect(() => {
-    const handleScroll = () => {
-      setParallaxOffset(window.scrollY * 0.5);
-    };
-    window.addEventListener("scroll", handleScroll);
-    
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % images.length);
     }, 5000);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
       clearInterval(interval);
     };
   }, [images.length]);
 
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background with Parallax */}
-      <div 
-        className="absolute inset-0 parallax"
-        style={{ transform: `translateY(${parallaxOffset}px)` }}
-      >
+      {/* Background */}
+      <div className="absolute inset-0">
         <div className="absolute inset-0 bg-hero-gradient opacity-90" />
         {images.map((image, index) => (
           <img
@@ -120,17 +110,6 @@ const HeroSection = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Floating Elements */}
-      <div className="absolute top-20 left-10 float">
-        <Heart className="h-8 w-8 text-accent opacity-60" />
-      </div>
-      <div className="absolute top-40 right-16 float" style={{ animationDelay: "2s" }}>
-        <Star className="h-6 w-6 text-primary opacity-60" />
-      </div>
-      <div className="absolute bottom-32 left-20 float" style={{ animationDelay: "4s" }}>
-        <Heart className="h-10 w-10 text-accent-light opacity-40" />
       </div>
 
       {/* Scroll Indicator */}

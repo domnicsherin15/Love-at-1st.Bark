@@ -3,9 +3,7 @@ import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import Footer from "@/components/Footer";
-import ParticleBackground from "@/components/ParticleBackground";
 import LoveNoteOverlay from "@/components/LoveNoteOverlay";
-import PawTrail from "@/components/PawTrail";
 import ECard from "@/components/ECard";
 import SecretPlaylist from "@/components/SecretPlaylist";
 import { useEasterEgg } from "@/hooks/useEasterEgg";
@@ -14,62 +12,20 @@ import { Settings } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 
 const Index = () => {
-  const [floatOffset, setFloatOffset] = useState(0);
   const [opacity, setOpacity] = useState([40]);
   const [blur, setBlur] = useState([3]);
   const [showControls, setShowControls] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
-  const [showPawTrail, setShowPawTrail] = useState(false);
   
   const { isActive: showLoveNote, reset: closeLoveNote } = useEasterEgg("luv");
-
-  useEffect(() => {
-    // Floating animation
-    const floatAnimation = setInterval(() => {
-      setFloatOffset((prev) => (prev + 1) % 360);
-    }, 50);
-
-    // Parallax scroll effect
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    // Show paw trail after 3 seconds
-    const pawTrailTimer = setTimeout(() => {
-      setShowPawTrail(true);
-    }, 3000);
-
-    // Hide paw trail after 15 seconds
-    const hidePawTrailTimer = setTimeout(() => {
-      setShowPawTrail(false);
-    }, 18000);
-
-    return () => {
-      clearInterval(floatAnimation);
-      window.removeEventListener('scroll', handleScroll);
-      clearTimeout(pawTrailTimer);
-      clearTimeout(hidePawTrailTimer);
-    };
-  }, []);
-
-  const floatY = Math.sin(floatOffset * 0.05) * 20;
-  const parallaxY = scrollY * 0.5; // Move at 50% speed of scroll
 
   return (
     <PageTransition variant="fade">
       <div className="min-h-screen cursor-paw relative">
-      {/* Particle Background */}
-      <ParticleBackground />
-      
-      {/* Floating Background Video Layer with Parallax */}
+      {/* Background Video Layer */}
       <div className="fixed inset-0 z-0 overflow-hidden">
         <div
           className="absolute inset-0"
           style={{
-            transform: `translateY(${floatY + parallaxY}px) scale(1.1)`,
-            transition: "transform 0.1s ease-out",
             opacity: opacity[0] / 100
           }}
         >
@@ -133,7 +89,6 @@ const Index = () => {
       )}
 
       {/* Romantic Elements */}
-      {showPawTrail && <PawTrail />}
       <LoveNoteOverlay isOpen={showLoveNote} onClose={closeLoveNote} />
       <SecretPlaylist />
 
