@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   Apple, 
   GraduationCap, 
@@ -7,14 +8,18 @@ import {
   BookOpen,
   Users,
   ChevronRight,
+  ChevronDown,
   Sparkles,
   Trophy,
-  Target
+  Target,
+  Check,
+  Clock,
+  Star
 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import Card3D from "@/components/Card3D";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import shihTzuHero1 from "@/assets/shih-tzu-hero-1.jpg";
 import shihTzuHero2 from "@/assets/shih-tzu-hero-2.jpg";
@@ -26,253 +31,330 @@ const careCategories = [
     title: "Nutrition & Diet",
     description: "Complete feeding guides and nutritional requirements for your Shih-Tzu",
     color: "text-green-600",
-    bgColor: "bg-green-50",
+    bgColor: "bg-green-100",
     articles: 12,
-    tips: ["Premium quality dog food", "Small frequent meals", "Avoid human food", "Fresh water always"]
+    difficulty: "Beginner",
+    timeToRead: "5 min",
+    tips: ["Premium quality dog food", "Small frequent meals", "Avoid human food", "Fresh water always"],
+    details: "A balanced diet is crucial for your Shih-Tzu's health. Focus on high-quality protein sources, healthy fats, and appropriate portions based on age and activity level."
   },
   {
     icon: GraduationCap,
     title: "Training & Behavior",
     description: "Professional training methods and behavioral guidance",
     color: "text-blue-600",
-    bgColor: "bg-blue-50", 
+    bgColor: "bg-blue-100", 
     articles: 15,
-    tips: ["Positive reinforcement", "Consistency is key", "Short training sessions", "Early socialization"]
+    difficulty: "Intermediate",
+    timeToRead: "8 min",
+    tips: ["Positive reinforcement", "Consistency is key", "Short training sessions", "Early socialization"],
+    details: "Shih-Tzus are intelligent and respond well to positive reinforcement. Start training early with short, fun sessions to build a strong bond with your companion."
   },
   {
     icon: Scissors,
     title: "Grooming & Hygiene",
     description: "Essential grooming techniques and hygiene maintenance",
     color: "text-purple-600",
-    bgColor: "bg-purple-50",
+    bgColor: "bg-purple-100",
     articles: 10,
-    tips: ["Daily brushing routine", "Professional grooming monthly", "Nail trimming weekly", "Teeth cleaning daily"]
+    difficulty: "Advanced",
+    timeToRead: "10 min",
+    tips: ["Daily brushing routine", "Professional grooming monthly", "Nail trimming weekly", "Teeth cleaning daily"],
+    details: "Regular grooming keeps your Shih-Tzu's luxurious coat healthy and tangle-free. Establish a consistent routine to make grooming a pleasant experience."
   }
 ];
 
-const AnimatedWord = ({ word, index }: { word: string, index: number }) => {
-  return (
-    <span 
-      className="inline-block animate-fade-in"
-      style={{ 
-        animationDelay: `${index * 0.08}s`,
-        opacity: 0,
-        animationFillMode: 'forwards'
-      }}
-    >
-      {word}
-      {word !== '' && '\u00A0'}
-    </span>
-  );
-};
-
-const AnimatedText = ({ text }: { text: string }) => {
-  const words = text.split(' ');
-  return (
-    <>
-      {words.map((word, index) => (
-        <AnimatedWord key={index} word={word} index={index} />
-      ))}
-    </>
-  );
-};
+const quickTips = [
+  { id: 1, text: "Feed your Shih-Tzu twice daily at consistent times", category: "nutrition" },
+  { id: 2, text: "Brush teeth at least 3 times per week", category: "hygiene" },
+  { id: 3, text: "Keep training sessions under 10 minutes", category: "training" },
+  { id: 4, text: "Check ears weekly for signs of infection", category: "hygiene" },
+  { id: 5, text: "Provide mental stimulation with puzzle toys", category: "training" },
+  { id: 6, text: "Avoid grapes, chocolate, and onions", category: "nutrition" },
+];
 
 const CareSection = () => {
-  const [activeCategory, setActiveCategory] = useState<number | null>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [expandedCard, setExpandedCard] = useState<number | null>(null);
+  const [completedTips, setCompletedTips] = useState<number[]>([]);
+  const [activeTab, setActiveTab] = useState("all");
+  const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
-    };
+  const toggleTip = (id: number) => {
+    setCompletedTips(prev => 
+      prev.includes(id) ? prev.filter(t => t !== id) : [...prev, id]
+    );
+  };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  const filteredTips = activeTab === "all" 
+    ? quickTips 
+    : quickTips.filter(tip => tip.category === activeTab);
+
+  const images = [
+    { src: shihTzuHero1, title: 'Grooming Essentials', desc: 'Learn professional grooming techniques' },
+    { src: shihTzuHero2, title: 'Training Success', desc: 'Effective training methods' },
+    { src: shihTzuGallery1, title: 'Nutrition Tips', desc: 'Optimal feeding guidelines' }
+  ];
 
   return (
-    <section 
-      ref={sectionRef}
-      className="min-h-screen py-20 relative overflow-hidden"
-      style={{
-        background: `radial-gradient(600px at ${mousePos.x}px ${mousePos.y}px, rgba(124, 58, 237, 0.1), transparent 80%)`
-      }}
-    >
-      {/* Floating particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-2 h-2 bg-primary/20 rounded-full animate-float"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${5 + Math.random() * 5}s`
-            }}
-          />
-        ))}
-      </div>
-
+    <section className="min-h-screen py-20 relative overflow-hidden bg-gradient-to-b from-background to-muted/30">
       <div className="container mx-auto px-4 relative z-10">
         {/* Hero Header */}
-        <div className="text-center mb-20 space-y-6">
-          <div className="inline-block">
-            <Badge variant="secondary" className="text-lg px-6 py-2 animate-bounce">
-              <Sparkles className="mr-2 h-4 w-4" />
-              <AnimatedText text="Shih-Tzu Care Excellence" />
-            </Badge>
-          </div>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16 space-y-6"
+        >
+          <Badge variant="secondary" className="text-lg px-6 py-2">
+            <Sparkles className="mr-2 h-4 w-4" />
+            Shih-Tzu Care Excellence
+          </Badge>
           
           <h1 className="text-5xl md:text-7xl font-bold">
-            <span className="bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent animate-pulse">
-              <AnimatedText text="Care Guide" />
+            <span className="bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
+              Care Guide
             </span>
           </h1>
           
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            <AnimatedText text="Master the art of Shih-Tzu care with expert guidance on nutrition, training, and grooming. Everything your companion needs for a happy, healthy life." />
+            Master the art of Shih-Tzu care with expert guidance on nutrition, training, and grooming.
           </p>
 
           <div className="flex flex-wrap gap-4 justify-center mt-8">
-            <Button size="lg" variant="premium" className="group">
-              <Trophy className="relative z-10 mr-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
-              <span className="relative z-10">Expert Tips</span>
+            <Button size="lg" className="group">
+              <Trophy className="mr-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
+              Expert Tips
             </Button>
-            <Button size="lg" variant="glow" className="group">
-              <Target className="relative z-10 mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-              <span className="relative z-10">Training Plans</span>
+            <Button size="lg" variant="outline" className="group">
+              <Target className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+              Training Plans
             </Button>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Care Categories with Enhanced 3D Effect */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+        {/* Interactive Care Categories */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           {careCategories.map((category, index) => {
             const IconComponent = category.icon;
-            const isActive = activeCategory === index;
+            const isExpanded = expandedCard === index;
             
             return (
-              <div
+              <motion.div
                 key={category.title}
-                onMouseEnter={() => setActiveCategory(index)}
-                onMouseLeave={() => setActiveCategory(null)}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
               >
-                <Card3D 
-                  className={`group cursor-pointer transition-all duration-500 ${
-                    isActive ? 'scale-105 z-20' : 'hover:scale-105'
+                <Card 
+                  className={`cursor-pointer transition-all duration-300 h-full ${
+                    isExpanded ? 'ring-2 ring-primary shadow-lg' : ''
                   }`}
+                  onClick={() => setExpandedCard(isExpanded ? null : index)}
                 >
-                  <Card className="border-2 border-primary/20 bg-gradient-to-br from-background via-background to-primary/5 backdrop-blur-xl h-full overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
-                  <CardHeader className="text-center relative z-10">
-                    <div className={`w-20 h-20 mx-auto rounded-full ${category.bgColor} flex items-center justify-center mb-6 
-                      transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 
-                      shadow-lg group-hover:shadow-2xl`}>
-                      <IconComponent className={`h-10 w-10 ${category.color}`} />
+                  <CardHeader className="text-center">
+                    <div className={`w-16 h-16 mx-auto rounded-full ${category.bgColor} flex items-center justify-center mb-4 transition-transform duration-300 ${isExpanded ? 'scale-110' : ''}`}>
+                      <IconComponent className={`h-8 w-8 ${category.color}`} />
                     </div>
                     
-                    <CardTitle className="text-2xl mb-3 group-hover:text-primary transition-colors">
+                    <CardTitle className="text-xl mb-2 flex items-center justify-center gap-2">
                       {category.title}
+                      <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
                     </CardTitle>
                     
-                    <Badge variant="outline" className="mx-auto mb-4">
-                      {category.articles} Expert Articles
-                    </Badge>
+                    <div className="flex gap-2 justify-center flex-wrap">
+                      <Badge variant="outline" className="text-xs">
+                        <BookOpen className="h-3 w-3 mr-1" />
+                        {category.articles} Articles
+                      </Badge>
+                      <Badge variant="outline" className="text-xs">
+                        <Clock className="h-3 w-3 mr-1" />
+                        {category.timeToRead}
+                      </Badge>
+                    </div>
                   </CardHeader>
                   
-                  <CardContent className="relative z-10">
-                    <CardDescription className="text-center mb-6 text-base">
+                  <CardContent>
+                    <CardDescription className="text-center mb-4">
                       {category.description}
                     </CardDescription>
                     
-                    {/* Tips List */}
-                    <div className="space-y-2 mt-4">
-                      {category.tips.map((tip, tipIndex) => (
-                        <div 
-                          key={tipIndex}
-                          className="flex items-center text-sm text-muted-foreground group-hover:text-foreground transition-colors"
-                          style={{
-                            transitionDelay: `${tipIndex * 100}ms`
-                          }}
+                    <AnimatePresence>
+                      {isExpanded && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="overflow-hidden"
                         >
-                          <div className="w-1.5 h-1.5 bg-primary rounded-full mr-2 group-hover:scale-150 transition-transform" />
-                          {tip}
-                        </div>
-                      ))}
-                    </div>
+                          <div className="pt-4 border-t space-y-4">
+                            <p className="text-sm text-muted-foreground">
+                              {category.details}
+                            </p>
+                            
+                            <div className="flex items-center gap-2">
+                              <Star className="h-4 w-4 text-yellow-500" />
+                              <span className="text-sm font-medium">Difficulty: {category.difficulty}</span>
+                            </div>
+                            
+                            <div className="space-y-2">
+                              <p className="text-sm font-medium">Quick Tips:</p>
+                              {category.tips.map((tip, tipIndex) => (
+                                <motion.div 
+                                  key={tipIndex}
+                                  initial={{ opacity: 0, x: -10 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: tipIndex * 0.1 }}
+                                  className="flex items-center text-sm text-muted-foreground"
+                                >
+                                  <Check className="w-4 h-4 text-primary mr-2 flex-shrink-0" />
+                                  {tip}
+                                </motion.div>
+                              ))}
+                            </div>
+                            
+                            <Button className="w-full mt-4" size="sm">
+                              Learn More
+                              <ChevronRight className="ml-2 h-4 w-4" />
+                            </Button>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </CardContent>
                 </Card>
-              </Card3D>
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
-        {/* Featured Care Images */}
-        <div className="mb-20">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            <AnimatedText text="Visual Care Guides" />
-          </h2>
+        {/* Interactive Tips Checklist */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold mb-4">Daily Care Checklist</h2>
+            <p className="text-muted-foreground">Track your progress - {completedTips.length}/{quickTips.length} completed</p>
+          </div>
+
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="max-w-2xl mx-auto">
+            <TabsList className="grid w-full grid-cols-4 mb-6">
+              <TabsTrigger value="all">All</TabsTrigger>
+              <TabsTrigger value="nutrition">Nutrition</TabsTrigger>
+              <TabsTrigger value="training">Training</TabsTrigger>
+              <TabsTrigger value="hygiene">Hygiene</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value={activeTab} className="space-y-3">
+              <AnimatePresence mode="popLayout">
+                {filteredTips.map((tip) => (
+                  <motion.div
+                    key={tip.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    onClick={() => toggleTip(tip.id)}
+                    className={`flex items-center gap-4 p-4 rounded-lg border cursor-pointer transition-all duration-200 ${
+                      completedTips.includes(tip.id) 
+                        ? 'bg-primary/10 border-primary' 
+                        : 'bg-card hover:bg-muted/50 border-border'
+                    }`}
+                  >
+                    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${
+                      completedTips.includes(tip.id) 
+                        ? 'bg-primary border-primary' 
+                        : 'border-muted-foreground'
+                    }`}>
+                      {completedTips.includes(tip.id) && (
+                        <Check className="h-4 w-4 text-primary-foreground" />
+                      )}
+                    </div>
+                    <span className={`flex-1 ${completedTips.includes(tip.id) ? 'line-through text-muted-foreground' : ''}`}>
+                      {tip.text}
+                    </span>
+                    <Badge variant="secondary" className="capitalize text-xs">
+                      {tip.category}
+                    </Badge>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </TabsContent>
+          </Tabs>
+        </motion.div>
+
+        {/* Interactive Image Gallery */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <h2 className="text-3xl font-bold text-center mb-8">Visual Care Guides</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[shihTzuHero1, shihTzuHero2, shihTzuGallery1].map((image, index) => (
-              <div 
+            {images.map((image, index) => (
+              <motion.div 
                 key={index}
-                className="group relative overflow-hidden rounded-2xl aspect-square cursor-pointer"
-                style={{
-                  animationDelay: `${index * 0.2}s`
-                }}
+                whileHover={{ y: -5 }}
+                className="relative overflow-hidden rounded-2xl aspect-square cursor-pointer group"
+                onClick={() => setSelectedImage(selectedImage === index ? null : index)}
               >
                 <img 
-                  src={image} 
-                  alt={`Shih Tzu Care ${index + 1}`}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-125 group-hover:rotate-3"
+                  src={image.src} 
+                  alt={image.title}
+                  className={`w-full h-full object-cover transition-transform duration-500 ${
+                    selectedImage === index ? 'scale-110' : 'group-hover:scale-105'
+                  }`}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent 
-                  opacity-0 group-hover:opacity-100 transition-all duration-500">
-                  <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                    <h3 className="text-white font-bold text-xl mb-2">
-                      {index === 0 ? 'Grooming Essentials' : index === 1 ? 'Training Success' : 'Nutrition Tips'}
-                    </h3>
-                    <p className="text-white/90 text-sm">
-                      {index === 0 ? 'Learn professional grooming techniques' : 
-                       index === 1 ? 'Effective training methods' : 
-                       'Optimal feeding guidelines'}
-                    </p>
+                <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent transition-opacity duration-300 ${
+                  selectedImage === index ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                }`}>
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="text-white font-bold text-xl mb-2">{image.title}</h3>
+                    <p className="text-white/90 text-sm">{image.desc}</p>
+                    {selectedImage === index && (
+                      <Button size="sm" variant="secondary" className="mt-3">
+                        View Guide
+                      </Button>
+                    )}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Call to Action */}
-        <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-purple-500/20 blur-3xl" />
-          <div className="relative text-center p-12 rounded-3xl bg-gradient-to-br from-primary/10 to-purple-500/10 backdrop-blur-xl border-2 border-primary/20">
-            <Heart className="w-16 h-16 mx-auto mb-6 text-primary animate-pulse" />
-            <h3 className="text-3xl font-bold mb-4">
-              <AnimatedText text="Join Our Care Community" />
-            </h3>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="relative"
+        >
+          <div className="text-center p-12 rounded-3xl bg-gradient-to-br from-primary/10 to-purple-500/10 border border-primary/20">
+            <Heart className="w-16 h-16 mx-auto mb-6 text-primary" />
+            <h3 className="text-3xl font-bold mb-4">Join Our Care Community</h3>
             <p className="text-muted-foreground mb-8 max-w-2xl mx-auto text-lg">
-              <AnimatedText text="Connect with expert trainers, groomers, and fellow Shih-Tzu lovers. Get personalized care advice and share your journey." />
+              Connect with expert trainers, groomers, and fellow Shih-Tzu lovers.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="premium" className="group">
-                <Users className="relative z-10 mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-                <span className="relative z-10">Join Community</span>
+              <Button size="lg" className="group">
+                <Users className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+                Join Community
               </Button>
-              <Button size="lg" variant="glow" className="group">
-                <BookOpen className="relative z-10 mr-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
-                <span className="relative z-10">Explore Guides</span>
-                <ChevronRight className="relative z-10 ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              <Button size="lg" variant="outline" className="group">
+                <BookOpen className="mr-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
+                Explore Guides
+                <ChevronRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
