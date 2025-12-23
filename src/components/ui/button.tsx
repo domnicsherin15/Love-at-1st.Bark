@@ -9,15 +9,15 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 hover:shadow-lg hover:-translate-y-1 hover:scale-[1.02] active:translate-y-0 active:scale-100 active:shadow-sm",
-        destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 hover:shadow-lg hover:-translate-y-1 hover:scale-[1.02] active:translate-y-0 active:scale-100",
-        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground hover:shadow-md hover:-translate-y-1 hover:scale-[1.02] hover:border-accent active:translate-y-0 active:scale-100",
-        secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 hover:shadow-lg hover:-translate-y-1 hover:scale-[1.02] active:translate-y-0 active:scale-100",
-        ghost: "hover:bg-accent hover:text-accent-foreground hover:-translate-y-1 hover:scale-[1.02] active:translate-y-0 active:scale-100",
-        link: "text-primary underline-offset-4 hover:underline hover:opacity-80 transition-opacity",
-        premium: "bg-gradient-to-r from-primary to-accent text-primary-foreground shadow-sm hover:shadow-lg hover:-translate-y-1 hover:scale-[1.02] hover:brightness-110 active:translate-y-0 active:scale-100",
-        glow: "bg-primary text-primary-foreground shadow-[0_0_15px_hsl(var(--primary)/0.3)] hover:shadow-[0_0_25px_hsl(var(--primary)/0.5)] hover:-translate-y-1 hover:scale-[1.02] active:translate-y-0 active:scale-100",
-        neon: "bg-background text-primary border border-primary hover:bg-primary/10 hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] hover:-translate-y-1 hover:scale-[1.02] active:translate-y-0 active:scale-100",
+        default: "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 hover:shadow-lg hover:-translate-y-1 hover:scale-[1.02] active:translate-y-0 active:scale-100 active:shadow-sm [&:hover_svg]:rotate-12 [&:hover_svg]:scale-110",
+        destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 hover:shadow-lg hover:-translate-y-1 hover:scale-[1.02] active:translate-y-0 active:scale-100 [&:hover_svg]:rotate-12 [&:hover_svg]:scale-110",
+        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground hover:shadow-md hover:-translate-y-1 hover:scale-[1.02] hover:border-accent active:translate-y-0 active:scale-100 [&:hover_svg]:-translate-y-0.5 [&:hover_svg]:scale-110",
+        secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 hover:shadow-lg hover:-translate-y-1 hover:scale-[1.02] active:translate-y-0 active:scale-100 [&:hover_svg]:rotate-6 [&:hover_svg]:scale-105",
+        ghost: "hover:bg-accent hover:text-accent-foreground hover:-translate-y-1 hover:scale-[1.02] active:translate-y-0 active:scale-100 [&:hover_svg]:-translate-y-0.5 [&:hover_svg]:scale-110",
+        link: "text-primary underline-offset-4 hover:underline hover:opacity-80 transition-opacity [&:hover_svg]:translate-x-0.5",
+        premium: "bg-gradient-to-r from-primary to-accent text-primary-foreground shadow-sm hover:shadow-lg hover:-translate-y-1 hover:scale-[1.02] hover:brightness-110 active:translate-y-0 active:scale-100 [&:hover_svg]:rotate-[360deg] [&:hover_svg]:scale-110",
+        glow: "bg-primary text-primary-foreground shadow-[0_0_15px_hsl(var(--primary)/0.3)] hover:shadow-[0_0_25px_hsl(var(--primary)/0.5)] hover:-translate-y-1 hover:scale-[1.02] active:translate-y-0 active:scale-100 [&:hover_svg]:rotate-12 [&:hover_svg]:scale-125",
+        neon: "bg-background text-primary border border-primary hover:bg-primary/10 hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] hover:-translate-y-1 hover:scale-[1.02] active:translate-y-0 active:scale-100 [&:hover_svg]:-rotate-12 [&:hover_svg]:scale-110",
       },
       size: {
         default: "h-10 px-4 py-2",
