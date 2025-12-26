@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Heart } from "lucide-react";
+import { Menu, X, Heart, Compass, Dog, Sparkles, Activity, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -17,11 +17,11 @@ const Navigation = () => {
   }, []);
 
   const navItems = [
-    { name: "Discover", href: "/" },
-    { name: "Breeds", href: "/breeds" },
-    { name: "Care", href: "/care" },
-    { name: "Health", href: "/health" },
-    { name: "Join Community", href: "/auth" }
+    { name: "Discover", href: "/", icon: Compass },
+    { name: "Breeds", href: "/breeds", icon: Dog },
+    { name: "Care", href: "/care", icon: Sparkles },
+    { name: "Health", href: "/health", icon: Activity },
+    { name: "Join Community", href: "/auth", icon: Users }
   ];
 
   return (
@@ -44,8 +44,9 @@ const Navigation = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className="text-foreground hover:text-primary transition-all duration-300 font-medium hover:scale-110 hover:-translate-y-1"
+                className="group flex items-center gap-1.5 text-foreground hover:text-primary transition-all duration-300 font-medium hover:scale-110 hover:-translate-y-1"
               >
+                <item.icon className="h-4 w-4 transition-all duration-300 group-hover:rotate-12 group-hover:scale-125" />
                 {item.name}
               </Link>
             ))}
@@ -79,9 +80,10 @@ const Navigation = () => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="text-foreground hover:text-primary transition-all duration-300 font-medium hover:translate-x-2"
+                  className="group flex items-center gap-2 text-foreground hover:text-primary transition-all duration-300 font-medium hover:translate-x-2"
                   onClick={() => setIsOpen(false)}
                 >
+                  <item.icon className="h-4 w-4 transition-all duration-300 group-hover:rotate-12 group-hover:scale-125" />
                   {item.name}
                 </Link>
               ))}
