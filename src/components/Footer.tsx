@@ -1,4 +1,4 @@
-import { Heart, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube } from "lucide-react";
+import { Heart, Mail, Phone, MapPin, Facebook, Twitter, Instagram,  } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -19,7 +19,7 @@ const Footer = () => {
       { name: "Grooming Guide", href: "#grooming" }
     ],
     "Adoption": [
-      { name: "Find Shelters", href: "#shelters" },
+      { name: "Find Palace", href: "#Palace" },
       { name: "Adoption Process", href: "#process" },
       { name: "Success Stories", href: "#stories" },
       { name: "Resources", href: "#resources" }
@@ -36,7 +36,6 @@ const Footer = () => {
     { icon: Facebook, href: "#", label: "Facebook" },
     { icon: Twitter, href: "#", label: "Twitter" },
     { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Youtube, href: "#", label: "YouTube" }
   ];
 
   return (
@@ -47,7 +46,7 @@ const Footer = () => {
           <div className="max-w-4xl mx-auto text-center">
             <h3 className="text-3xl font-bold mb-4">Stay Updated with PawPerfect</h3>
             <p className="text-lg mb-8 text-primary-foreground/80">
-              Get the latest dog care tips, breed spotlights, and adoption news delivered to your inbox
+              Get the latest dog care tips, breed spotlights, and adoption news delivered to your inbox 😅
             </p>
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <Input

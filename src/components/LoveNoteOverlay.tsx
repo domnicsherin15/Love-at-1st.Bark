@@ -47,7 +47,7 @@ const LoveNoteOverlay = ({ isOpen, onClose }: LoveNoteOverlayProps) => {
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold gradient-text">
-            For You, Bhavani ✨
+            For You Mom✨
           </h2>
           
           <div className="space-y-4 text-lg md:text-xl text-foreground/90 leading-relaxed">
@@ -58,7 +58,7 @@ const LoveNoteOverlay = ({ isOpen, onClose }: LoveNoteOverlayProps) => {
               They're all just my way of saying what words sometimes can't.
             </p>
             <p className="text-2xl font-semibold text-primary animate-fade-in" style={{ animationDelay: "0.6s" }}>
-              I love you 💕
+              With Love & Care💕
             </p>
             <p className="text-base italic text-muted-foreground animate-fade-in" style={{ animationDelay: "0.8s" }}>
               Just like these Shih-Tzus bring joy with their presence,<br />
@@ -68,7 +68,7 @@ const LoveNoteOverlay = ({ isOpen, onClose }: LoveNoteOverlayProps) => {
 
           <div className="pt-4 text-right animate-fade-in" style={{ animationDelay: "1s" }}>
             <p className="text-xl font-medium text-accent">
-              — Forever yours, Sherinzz 💝
+              — Forever yours,  Always 💝
             </p>
           </div>
         </div>
