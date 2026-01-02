@@ -1,12 +1,20 @@
 import { useState, useEffect, useRef } from "react";
-import { ArrowRight, Play, Heart, Star } from "lucide-react";
+import { ArrowRight, Play, Heart, Star, Compass, Dog, Sparkles, Activity, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import shihtzu1 from "@/assets/shih-tzu-hero-1.jpg";
 import shihtzu2 from "@/assets/shih-tzu-hero-2.jpg";
 import shihtzu3 from "@/assets/shih-tzu-hero-3.jpg";
+
+const sideNavItems = [
+  { name: "Discover", href: "/", icon: Compass },
+  { name: "Breeds", href: "/breeds", icon: Dog },
+  { name: "Care", href: "/care", icon: Sparkles },
+  { name: "Health", href: "/health", icon: Activity },
+  { name: "Join Community", href: "/auth", icon: Users }
+];
 
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -58,9 +66,32 @@ const HeroSection = () => {
         ))}
       </motion.div>
 
+      {/* Floating Side Navigation */}
+      <motion.div 
+        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 hidden md:flex flex-col gap-3"
+        style={{ opacity }}
+        initial={{ x: -50, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ delay: 0.5, duration: 0.6 }}
+      >
+        {sideNavItems.map((item, index) => (
+          <Link
+            key={item.name}
+            to={item.href}
+            className="group flex items-center gap-3 glass px-4 py-3 rounded-full hover:bg-primary/20 transition-all duration-300 hover:scale-105 hover:translate-x-1"
+            style={{ animationDelay: `${index * 0.1}s` }}
+          >
+            <item.icon className="h-5 w-5 text-primary group-hover:scale-110 transition-transform" />
+            <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors whitespace-nowrap">
+              {item.name}
+            </span>
+          </Link>
+        ))}
+      </motion.div>
+
       {/* Parallax Content */}
       <motion.div 
-        className="relative z-10 container mx-auto px-4"
+        className="relative z-10 container mx-auto px-4 md:pl-56"
         style={{ y: contentY, opacity }}
       >
         <div className="max-w-4xl mx-auto text-center">
