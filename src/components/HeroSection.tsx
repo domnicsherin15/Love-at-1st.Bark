@@ -42,7 +42,7 @@ const HeroSection = () => {
         className="absolute inset-0"
         style={{ y: backgroundY, scale }}
       >
-        <div className="absolute inset-0 bg-hero-gradient opacity-90 z-10" />
+        <div className="absolute inset-0 bg-hero-gradient opacity-50 z-10" />
         {images.map((image, index) => (
           <img
             key={index}
