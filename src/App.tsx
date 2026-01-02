@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import AnimatedRoutes from "./components/AnimatedRoutes";
 import CursorPawTrail from "./components/CursorPawTrail";
 import ScrollProgress from "./components/ScrollProgress";
+import BackToTop from "./components/BackToTop";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +17,7 @@ const App = () => (
       <Sonner />
       <CursorPawTrail />
       <ScrollProgress />
+      <BackToTop />
       <BrowserRouter>
         <AnimatedRoutes />
       </BrowserRouter>
