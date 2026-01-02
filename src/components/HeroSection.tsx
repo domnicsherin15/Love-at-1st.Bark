@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ArrowRight, Play, Heart, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
+import { motion, useScroll, useTransform } from "framer-motion";
 import shihtzu1 from "@/assets/shih-tzu-hero-1.jpg";
 import shihtzu2 from "@/assets/shih-tzu-hero-2.jpg";
 import shihtzu3 from "@/assets/shih-tzu-hero-3.jpg";
@@ -10,6 +11,17 @@ import shihtzu3 from "@/assets/shih-tzu-hero-3.jpg";
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const navigate = useNavigate();
+  const sectionRef = useRef<HTMLElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"]
+  });
+  
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.8, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
   const images = [shihtzu1, shihtzu2, shihtzu3];
 
@@ -24,10 +36,13 @@ const HeroSection = () => {
   }, [images.length]);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-hero-gradient opacity-90" />
+    <section ref={sectionRef} id="home" className="relative min-h-screen flex items-center overflow-hidden">
+      {/* Parallax Background */}
+      <motion.div 
+        className="absolute inset-0"
+        style={{ y: backgroundY, scale }}
+      >
+        <div className="absolute inset-0 bg-hero-gradient opacity-90 z-10" />
         {images.map((image, index) => (
           <img
             key={index}
@@ -38,10 +53,13 @@ const HeroSection = () => {
             }`}
           />
         ))}
-      </div>
+      </motion.div>
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-4">
+      {/* Parallax Content */}
+      <motion.div 
+        className="relative z-10 container mx-auto px-4"
+        style={{ y: contentY, opacity }}
+      >
         <div className="max-w-4xl mx-auto text-center">
           {/* Personalized Greeting */}
           <div className="mb-4 fade-in-up stagger-1">
@@ -110,14 +128,17 @@ const HeroSection = () => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <motion.div 
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
+        style={{ opacity }}
+      >
         <div className="w-6 h-10 border-2 border-foreground rounded-full flex justify-center">
           <div className="w-1 h-3 bg-foreground rounded-full mt-2 animate-pulse" />
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
