@@ -78,15 +78,15 @@ const Footer = () => {
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
                   <Mail className="h-5 w-5 text-accent" />
-                  <span className="text-primary-foreground/80">hello@pawperfect.com</span>
+                  <span className="text-primary-foreground/80">paawperfect@proton.mail</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Phone className="h-5 w-5 text-accent" />
-                  <span className="text-primary-foreground/80">1-800-PAW-HELP</span>
+                  <span className="text-primary-foreground/80">+91-9692910855</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <MapPin className="h-5 w-5 text-accent" />
-                  <span className="text-primary-foreground/80">Available Worldwide</span>
+                  <span className="text-primary-foreground/80">Available Worldwide... Paaa 🥺</span>
                 </div>
               </div>
             </div>
@@ -116,7 +116,7 @@ const Footer = () => {
         <div className="py-8 border-t border-primary-foreground/20">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="text-primary-foreground/80 mb-4 md:mb-0">
-              © {currentYear} PawPerfect. All rights reserved. Made with ❤️ for dog lovers everywhere.
+              © {currentYear} PawPerfect. All rights reserved. Made with Care for dog lovers everywhere.
             </div>
             
             {/* Social Links */}

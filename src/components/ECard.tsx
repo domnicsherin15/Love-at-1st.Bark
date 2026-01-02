@@ -15,7 +15,7 @@ remember that you bring as much joy to my life
 as these adorable Shih-Tzus bring to everyone's hearts.
 
 Love always,
-Sherinzz 💝`;
+You Know The Name 💝`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(cardMessage);
@@ -88,7 +88,7 @@ Sherinzz 💝`;
           const url = URL.createObjectURL(blob);
           const a = document.createElement('a');
           a.href = url;
-          a.download = 'love-note-from-sherinzz.png';
+          a.download = 'love-note-from-Anonymous.png';
           a.click();
           URL.revokeObjectURL(url);
         }
@@ -148,7 +148,7 @@ Sherinzz 💝`;
 
                 <p className="text-xl font-semibold text-accent pt-4">
                   Love always,<br />
-                  Sherinzz 💝
+                  Anonymous - Might be know the Name 💝
                 </p>
               </div>
 

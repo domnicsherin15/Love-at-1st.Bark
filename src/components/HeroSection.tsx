@@ -46,7 +46,7 @@ const HeroSection = () => {
           {/* Personalized Greeting */}
           <div className="mb-4 fade-in-up stagger-1">
             <p className="text-sm md:text-base text-muted-foreground italic">
-              For <span className="text-primary font-semibold">Bhavani</span> —
+              For <span className="text-primary font-semibold">Mom</span> —
             </p>
             <p className="text-xs md:text-sm text-muted-foreground/80">
               A tiny Shih-Tzu corner I made because you smiled at puppies once ✨
@@ -101,12 +101,12 @@ const HeroSection = () => {
               <div className="text-sm text-muted-foreground">Happy Families</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">1M+</div>
+              <div className="text-3xl font-bold text-primary mb-2">10L+</div>
               <div className="text-sm text-muted-foreground">Dogs Helped</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-accent mb-2">24/7</div>
-              <div className="text-sm text-muted-foreground">Support</div>
+              <div className="text-sm text-muted-foreground">Support Provided</div>
             </div>
           </div>
         </div>

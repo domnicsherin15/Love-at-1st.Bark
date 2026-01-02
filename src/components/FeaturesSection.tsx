@@ -88,11 +88,11 @@ const FeaturesSection = () => {
             Everything You Need for Your
             <br />
             <span className="gradient-text bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary-dark animate-gradient">
-              Dog Journey
+              Dog Journey...
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            From breed selection to lifelong care, we provide comprehensive resources for every dog lover
+            From breed selection to lifelong care, This site provide comprehensive resources for every dog lover
           </p>
         </div>
 
@@ -168,7 +168,7 @@ const FeaturesSection = () => {
                 <div className="text-white/90 text-lg">Dog Breeds</div>
               </div>
               <div className="group hover:scale-110 transition-transform duration-300">
-                <div className="text-5xl font-bold mb-2 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>500+</div>
+                <div className="text-5xl font-bold mb-2 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>400+</div>
                 <div className="text-white/90 text-lg">Care Articles</div>
               </div>
               <div className="group hover:scale-110 transition-transform duration-300">
@@ -176,7 +176,7 @@ const FeaturesSection = () => {
                 <div className="text-white/90 text-lg">Users Helped</div>
               </div>
               <div className="group hover:scale-110 transition-transform duration-300">
-                <div className="text-5xl font-bold mb-2 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>99%</div>
+                <div className="text-5xl font-bold mb-2 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>200%</div>
                 <div className="text-white/90 text-lg">Satisfaction Rate</div>
               </div>
             </div>
