@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Heart, BookOpen, Home, Users, Zap, Shield, Sparkles, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Card3D from "@/components/Card3D";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const features = [
   {
@@ -58,17 +59,29 @@ const features = [
 
 const FeaturesSection = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+  
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
+  const headerY = useTransform(scrollYProgress, [0, 0.5], ["50px", "0px"]);
+  const headerOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
+  const statsY = useTransform(scrollYProgress, [0.5, 1], ["100px", "0px"]);
+  const statsOpacity = useTransform(scrollYProgress, [0.5, 0.8], [0, 1]);
 
   return (
-    <section className="relative py-20 bg-gradient-to-b from-background via-background/50 to-background overflow-hidden">
+    <section ref={sectionRef} className="relative py-20 bg-gradient-to-b from-background via-background/50 to-background overflow-hidden">
       {/* Parallax Background */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-fixed opacity-10"
+      <motion.div 
+        className="absolute inset-0 bg-cover bg-center opacity-10"
         style={{
           backgroundImage: `url(https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=2069&auto=format&fit=crop)`,
-          transform: 'translateZ(0)',
+          y: backgroundY,
         }}
-      ></div>
+      />
       
       {/* Overlay gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/80"></div>
@@ -78,13 +91,16 @@ const FeaturesSection = () => {
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-float" style={{ animationDelay: "2s" }}></div>
       
       <div className="container mx-auto px-4 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-16 fade-in-up">
+        {/* Parallax Header */}
+        <motion.div 
+          className="text-center mb-16"
+          style={{ y: headerY, opacity: headerOpacity }}
+        >
           <Badge variant="secondary" className="mb-4 text-base px-6 py-2 animate-pulse">
             <Sparkles className="h-4 w-4 mr-2 inline" />
             Why Choose PawPerfect
           </Badge>
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in-up">
+          <h2 className="text-4xl md:text-6xl font-bold mb-6">
             Everything You Need for Your
             <br />
             <span className="gradient-text bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary-dark animate-gradient">
@@ -94,19 +110,23 @@ const FeaturesSection = () => {
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             From breed selection to lifelong care, This site provide comprehensive resources for every dog lover
           </p>
-        </div>
+        </motion.div>
 
-        {/* Features Grid */}
+        {/* Parallax Features Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
           {features.map((feature, index) => {
             const IconComponent = feature.icon;
             const isHovered = hoveredCard === index;
             
             return (
-              <Card3D
+              <motion.div
                 key={feature.title}
-                className="h-full"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
+                <Card3D className="h-full">
                 <Card 
                   onMouseEnter={() => setHoveredCard(index)}
                   onMouseLeave={() => setHoveredCard(null)}
@@ -141,13 +161,17 @@ const FeaturesSection = () => {
                   {/* Decorative corner accent */}
                   <div className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </Card>
-              </Card3D>
+                </Card3D>
+              </motion.div>
             );
           })}
         </div>
 
-        {/* Enhanced Stats Section */}
-        <div className="relative mt-20 p-10 rounded-3xl bg-gradient-to-r from-primary via-accent to-primary-dark text-white overflow-hidden shadow-elegant fade-in-up">
+        {/* Parallax Stats Section */}
+        <motion.div 
+          className="relative mt-20 p-10 rounded-3xl bg-gradient-to-r from-primary via-accent to-primary-dark text-white overflow-hidden shadow-elegant"
+          style={{ y: statsY, opacity: statsOpacity }}
+        >
           {/* Animated background pattern */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute inset-0" style={{
@@ -181,7 +205,7 @@ const FeaturesSection = () => {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* CTA Section */}
         <div className="text-center mt-16 fade-in-up">
