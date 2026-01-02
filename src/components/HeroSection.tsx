@@ -49,8 +49,11 @@ const HeroSection = () => {
             src={image}
             alt={`Hero dog ${index + 1}`}
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-              index === currentSlide ? "opacity-100" : "opacity-0"
+              index === currentSlide ? "opacity-100 animate-ken-burns" : "opacity-0"
             }`}
+            style={{
+              animationDelay: index === currentSlide ? "0s" : "0s",
+            }}
           />
         ))}
       </motion.div>
