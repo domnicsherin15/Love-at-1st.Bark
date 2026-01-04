@@ -745,4 +745,18 @@
   .animate-ken-burns {
     animation: ken-burns 5s ease-out forwards;
   }
+
+  /* Animated border glow for buttons */
+  @keyframes border-glow {
+    0%, 100% {
+      box-shadow: 0 0 5px hsl(var(--primary) / 0.3);
+    }
+    50% {
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.6), 0 0 30px hsl(var(--accent) / 0.3);
+    }
+  }
+
+  .animate-border-glow:hover {
+    animation: border-glow 1.5s ease-in-out infinite;
+  }
 }
