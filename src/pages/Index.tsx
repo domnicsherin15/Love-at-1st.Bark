@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import LoveNoteOverlay from "@/components/LoveNoteOverlay";
 import ECard from "@/components/ECard";
 import SecretPlaylist from "@/components/SecretPlaylist";
+import ColorfulCubes3D from "@/components/ColorfulCubes3D";
 import { useEasterEgg } from "@/hooks/useEasterEgg";
 import { Slider } from "@/components/ui/slider";
 import { Settings } from "lucide-react";
@@ -98,6 +99,7 @@ const Index = () => {
         <main>
           <HeroSection />
           <FeaturesSection />
+          <ColorfulCubes3D />
           <ECard />
         </main>
         <Footer />
