@@ -128,7 +128,7 @@ const Footer = () => {
                     key={social.label}
                     href={social.href}
                     aria-label={social.label}
-                    className="w-10 h-10 bg-primary-foreground/10 rounded-full flex items-center justify-center hover:bg-accent transition-colors duration-200 group"
+                    className="w-10 h-10 bg-primary-foreground/10 rounded-full flex items-center justify-center hover:bg-accent transition-colors duration-200 group shadow-[inset_0_2px_8px_rgba(0,0,0,0.4)] hover:shadow-[inset_0_3px_12px_rgba(0,0,0,0.5)]"
                   >
                     <IconComponent className="h-5 w-5 text-primary-foreground/80 group-hover:text-primary" />
                   </a>
