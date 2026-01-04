@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, Heart, Compass, Dog, Sparkles, Activity, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
+import ThemeToggle from "./ThemeToggle";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,8 +53,9 @@ const Navigation = () => {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
+          {/* CTA Button & Theme Toggle */}
+          <div className="hidden md:flex items-center gap-2">
+            <ThemeToggle />
             <Button variant="glow" onClick={() => navigate('/auth')}>
               <span className="relative z-10">Join Community</span>
             </Button>
@@ -86,10 +88,13 @@ const Navigation = () => {
                   <item.icon className="h-4 w-4 transition-all duration-300 group-hover:rotate-12 group-hover:scale-125" />
                   {item.name}
                 </Link>
-              ))}
-              <Button variant="glow" className="mt-4" onClick={() => { navigate('/auth'); setIsOpen(false); }}>
-                <span className="relative z-10">Join Community</span>
-              </Button>
+                ))}
+              <div className="flex items-center gap-3 mt-4">
+                <ThemeToggle />
+                <Button variant="glow" className="flex-1" onClick={() => { navigate('/auth'); setIsOpen(false); }}>
+                  <span className="relative z-10">Join Community</span>
+                </Button>
+              </div>
             </div>
           </div>
         )}
