@@ -1,7 +1,17 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
+
+// Check WebGL support
+const isWebGLAvailable = () => {
+  try {
+    const canvas = document.createElement("canvas");
+    return !!(window.WebGLRenderingContext && (canvas.getContext("webgl") || canvas.getContext("experimental-webgl")));
+  } catch {
+    return false;
+  }
+};
 
 interface CubeProps {
   position: [number, number, number];
@@ -83,6 +93,44 @@ const CubeStack = ({ isHovered }: { isHovered: boolean }) => {
 
 const ColorfulCubes3D = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const [webGLSupported, setWebGLSupported] = useState(true);
+
+  useEffect(() => {
+    setWebGLSupported(isWebGLAvailable());
+  }, []);
+
+  // Fallback UI when WebGL is not available
+  if (!webGLSupported) {
+    return (
+      <section className="py-20 relative overflow-hidden">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+              Interactive 3D Experience
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Colorful cubes with dynamic hover animations
+            </p>
+          </div>
+          <div className="w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden bg-gradient-to-br from-primary/20 via-accent/20 to-secondary/20 border border-primary/20 shadow-elegant flex items-center justify-center">
+            <div className="grid grid-cols-3 gap-4 animate-pulse">
+              {[...Array(9)].map((_, i) => (
+                <div
+                  key={i}
+                  className="w-16 h-16 rounded-lg transition-all duration-500"
+                  style={{
+                    backgroundColor: `hsl(${i * 40}, 70%, 60%)`,
+                    transform: `rotate(${i * 5}deg)`,
+                    animationDelay: `${i * 0.1}s`,
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-20 relative overflow-hidden">
